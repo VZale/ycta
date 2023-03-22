@@ -12,13 +12,13 @@
                                 <NuxtLink to="/about">О Компании</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="/about">Доставка</NuxtLink>
+                                <NuxtLink to="/guarantee">Доставка</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="/about">Оплата</NuxtLink>
+                                <NuxtLink to="/payment">Оплата</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="/about">Контакты</NuxtLink>
+                                <NuxtLink to="/contacts">Контакты</NuxtLink>
                             </li>
                         </ul>
                     </div>

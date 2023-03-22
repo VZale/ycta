@@ -82,13 +82,13 @@
                                 <NuxtLink to="/about">О компании</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="/shipping">Доставка</NuxtLink>
+                                <NuxtLink to="/guarantee">Доставка</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="/pays">Оплата</NuxtLink>
+                                <NuxtLink to="/payment">Оплата</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="/contact">Контакты</NuxtLink>
+                                <NuxtLink to="/contacts">Контакты</NuxtLink>
                             </li>
                         </div>
                     </ul>
@@ -112,7 +112,7 @@
             </div>
             <div class="bottom">
                 <p>© Строительный Двор «УСТА», 2022</p>
-                <NuxtLink to="/">Политика конфиденциальности</NuxtLink>
+                <NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink>
                 <p>Сделано в ...</p>
             </div>
         </div>

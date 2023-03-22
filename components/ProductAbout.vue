@@ -7,6 +7,9 @@
                     <p v-if="description">{{
                             description
                         }}</p>
+                    <div v-if="moreDescription && moreDescription.length" class="more-description">
+                        <p v-for="(item, n) in moreDescription">{{ item }}</p>
+                    </div>
                     <button v-if="buttonText" class="button large white">{{ buttonText }}</button>
                     <ul v-if="moreContent">
                         <li v-for="(item, i) in moreContent" :key="i">
@@ -60,6 +63,9 @@ export default {
         },
         moreContent: {
             type: Array
+        },
+        moreDescription: {
+            type: Array,
         },
         description: {
             type: String
@@ -183,5 +189,13 @@ export default {
 
 .product-about .more-content li:last-child {
     margin-bottom: 0;
+}
+
+.product-about .more-description p {
+    margin-bottom: 12px;
+}
+
+.product-about .more-description p:last-child {
+    margin: 0;
 }
 </style>

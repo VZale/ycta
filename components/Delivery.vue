@@ -48,7 +48,7 @@ export default {
 
 .delivery .item {
     padding: 40px;
-    background: #FFFFFF;
+    background: var(--white);
     border-radius: 12px;
     cursor: pointer;
     position: relative;

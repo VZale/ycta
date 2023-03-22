@@ -36,6 +36,26 @@ export default {
                 path: '/about',
                 component: resolve(__dirname, 'pages/About.vue'),
             })
+            routes.push({
+                name: 'Доставка',
+                path: '/guarantee',
+                component: resolve(__dirname, 'pages/Guarantee.vue'),
+            })
+            routes.push({
+                name: 'Оплата',
+                path: '/payment',
+                component: resolve(__dirname, 'pages/Payment.vue'),
+            })
+            routes.push({
+                name: 'Контакты',
+                path: '/contacts',
+                component: resolve(__dirname, 'pages/Contacts.vue'),
+            })
+            routes.push({
+                name: 'Политика конфиденциальности',
+                path: '/privacy',
+                component: resolve(__dirname, 'pages/Privacy.vue'),
+            })
         }
     },
 
@@ -54,6 +74,10 @@ export default {
     modules: [
         '@nuxtjs/axios',
         '@nuxtjs/pwa',
+        ['nuxt-gmaps', {
+            key: 'AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg',
+            //you can use libraries: ['places']
+        }]
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
