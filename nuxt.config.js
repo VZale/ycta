@@ -16,6 +16,10 @@ export default {
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap'}
         ]
     },
+    server: {
+        host: process.env.NUXT_HOST,
+        port: process.env.NUXT_PORT,
+    },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: [
