@@ -1,0 +1,97 @@
+<template>
+    <section class="delivery">
+        <div class="container">
+            <div class="item">
+                <div class="content">
+                    <h2>Доставка</h2>
+                    <p>Отлаженная система доставки позволяет быстро и экономически выгодно доставить приобретенные
+                        строительные
+                        материалы в удобное для вас время. Доставка возможна манипулятором или длинномерным
+                        транспортом</p>
+                </div>
+                <nuxt-link to="/" class="button black small">Подробнее о доставке</nuxt-link>
+                <img :src="require('@/assets/ycta-icons/rocket.png')" alt="">
+            </div>
+            <div class="item">
+                <div class="content">
+                    <h2>Оплата</h2>
+                    <ul>
+                        <li>Картой и по QR-коду</li>
+                        <li>Отсрочка платежа</li>
+                        <li>Оплата наличными</li>
+                        <li>По безналичному расчету с НДС</li>
+                    </ul>
+                </div>
+                <nuxt-link to="/" class="button gray small">Подробнее об оплате</nuxt-link>
+                <img :src="require('@/assets/ycta-icons/card.png')" alt="">
+            </div>
+        </div>
+    </section>
+</template>
+
+<script>
+export default {
+    name: "Delivery"
+}
+</script>
+
+<style scoped>
+.delivery {
+    padding: 80px 0 120px;
+}
+
+.delivery .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.delivery .item {
+    padding: 40px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 340px;
+}
+
+.delivery .item h2 {
+    font-weight: 500;
+    font-size: 52px;
+    line-height: 105%;
+    color: #32343B;
+    margin-bottom: 24px;
+}
+
+.delivery .item p {
+    line-height: 140%;
+    color: #32343B;
+}
+
+.delivery ul {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    grid-template-columns: repeat(2, max-content);
+    gap: 12px;
+}
+
+.delivery ul li {
+    list-style: disc;
+    list-style-position: inside;
+}
+
+.delivery img {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.delivery a {
+    font-size: 18px;
+    font-weight: 500;
+    width: max-content;
+}
+</style>
