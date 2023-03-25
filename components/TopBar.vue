@@ -40,15 +40,15 @@
                         <span class="material-icons">menu</span>
                         Каталог
                     </button>
-                    <button class="button gray-2 button-item">
+                    <NuxtLink to="/catalog/тротуарная-плитка" class="button gray-2 button-item">
                         Тротуарная плитка
-                    </button>
-                    <button class="button gray-2 button-item">
+                    </NuxtLink>
+                    <NuxtLink to="/catalog/облицовочный-кирпич-керамический" class="button gray-2 button-item">
                         Облицовочный кирпич керамический
-                    </button>
-                    <button class="button gray-2 button-item">
+                    </NuxtLink>
+                    <NuxtLink to="/catalog/керамические-поризованные-блоки" class="button gray-2 button-item">
                         Керамические поризованные блоки
-                    </button>
+                    </NuxtLink>
                     <button class="button gray-2 button-item">
                         Еще +7
                     </button>

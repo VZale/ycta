@@ -1,7 +1,11 @@
 <template>
-    <section class="consultation">
+    <section class="consultation" :class="{'is-modal': isModal, successfully: applicationModal}">
+
         <div class="container">
             <div class="box">
+                <div class="close" v-if="isModal" @click="$emit('close-modal')">
+                    <img :src="require('@/assets/ycta-icons/close.png')" alt="">
+                </div>
                 <div class="item">
                     <div class="top">
                         <h2>Давайте начнем с консультации</h2>
@@ -22,7 +26,7 @@
                         </div>
                     </div>
                     <div class="form-items">
-                        <button class="button white large">Отправить заявку</button>
+                        <button class="button white large" @click="send()">Отправить заявку</button>
                         <p>Нажимая на кнопку, вы соглашаетесь с
                             <nuxt-link to="/">Политикой конфиденциальности</nuxt-link>
                         </p>
@@ -30,12 +34,24 @@
                 </div>
             </div>
         </div>
+        <ModalBox v-if="applicationModal">
+            <template #modalContent>
+                <Application @close-modal="closeModal()" :isModal="true"/>
+            </template>
+        </ModalBox>
     </section>
 </template>
 
 <script>
+import Vue from "vue";
 export default {
     name: "Consultation",
+    props: {
+        isModal: {
+            type: Boolean,
+            default: false,
+        }
+    },
     data() {
         return {
             inputIsActive: {
@@ -45,7 +61,8 @@ export default {
             userInfo: {
                 name: '',
                 phone: ''
-            }
+            },
+            applicationModal: false
         }
     },
     methods: {
@@ -58,6 +75,13 @@ export default {
                     this.$set(this.inputIsActive, item, false)
                 }
             }
+        },
+        send() {
+            Vue.set(this, 'applicationModal', true)
+        },
+        closeModal() {
+            Vue.set(this, 'applicationModal', false)
+            this.$emit('close-modal')
         }
     }
 }
@@ -67,7 +91,6 @@ export default {
 .consultation {
     margin: 80px 0;
 }
-
 .consultation .box {
     border-radius: 12px;
     padding: 40px;
@@ -78,55 +101,45 @@ export default {
     gap: 12px;
     place-items: center stretch;
 }
-
 .consultation .item .top {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     margin-bottom: 24px;
     place-items: end;
 }
-
 .top h2 {
     font-weight: 500;
     font-size: 52px;
     line-height: 105%;
     max-width: 430px;
 }
-
 .item p {
     max-width: 450px;
 }
-
 .item.form .form-items {
     display: grid;
     grid-template-columns: max-content 1fr;
     gap: 12px;
     margin-bottom: 24px;
 }
-
 .form-items .form-item {
     background: #C54449;
     border-radius: 8px;
     height: 53px;
     position: relative;
 }
-
 .form-items p {
     color: #E7B0B2;
 }
-
 .form-items a {
     color: var(--white);
 }
-
 .form-item:focus {
     background-color: black;
 }
-
 .form-items .form-items:last-child {
     margin-bottom: 0;
 }
-
 .form-items .form-item p {
     position: absolute;
     top: 50%;
@@ -136,12 +149,10 @@ export default {
     z-index: 2;
     transition: all .3s ease-in-out;
 }
-
 .form-items .form-item.is-focus p {
     font-size: 12px;
     top: 17px;
 }
-
 input {
     height: 100%;
     width: 100%;
@@ -154,10 +165,30 @@ input {
     font-weight: 400;
     padding: 35px 14px;
 }
-
 button {
     font-size: 18px;
     font-weight: 500;
 }
-
+.consultation.is-modal {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.consultation.successfully .box {
+    display: none;
+}
+.consultation.is-modal .container {
+    padding: 0;
+}
+.consultation.is-modal .box {
+    grid-template-columns: 1fr;
+}
+.close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    cursor: pointer;
+}
 </style>

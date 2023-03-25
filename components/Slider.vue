@@ -9,7 +9,7 @@
                         тротуарную
                         плитку. Со своего склада, либо со складов производителей</p>
                 </div>
-                <button class="button" :class="slideButtonStyle">Начать с консультации</button>
+                <button class="button" :class="slideButtonStyle" @click="consultationModal = true">Начать с консультации</button>
             </div>
             <div class="slide-item">
                 <img class="slide-image" :src="require('@/assets/ycta-main-slider/slide-1.png')" alt="slide-1">
@@ -19,7 +19,7 @@
                         тротуарную
                         плитку. Со своего склада, либо со складов производителей</p>
                 </div>
-                <button class="button" :class="slideButtonStyle">Начать с консультации</button>
+                <button class="button" :class="slideButtonStyle" @click="consultationModal = true">Начать с консультации</button>
             </div>
             <template #customPaging="page" class="custom-dots">
                 <div class="custom-dot">
@@ -33,6 +33,11 @@
             <button class="slide-button" @click="showNext"><img :src="require('@/assets/ycta-icons/arrow-right.svg')"
                                                                 alt=""></button>
         </div>
+        <ModalBox v-if="consultationModal">
+            <template #modalContent>
+                <Consultation @close-modal="consultationModal = false" :isModal="true"/>
+            </template>
+        </ModalBox>
     </div>
 </template>
 
@@ -57,9 +62,15 @@ export default {
         }
     },
     name: "Slider",
-    components: {VueSlickCarousel},
+    components: {
+        VueSlickCarousel,
+        ModalBox: () => import('@/components/ModalBox'),
+        Consultation: () => import('@/components/Consultation'),
+    },
     data() {
-        return {}
+        return {
+            consultationModal: false
+        }
     },
     methods: {
         showNext() {

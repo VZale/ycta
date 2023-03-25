@@ -30,6 +30,11 @@ export default {
     router: {
         extendRoutes(routes, resolve) {
             routes.push({
+                name: '404',
+                path: '*',
+                component: resolve(__dirname, 'pages/404.vue')
+            })
+            routes.push({
                 name: 'Главная',
                 path: '/',
                 component: resolve(__dirname, 'pages/index.vue'),
@@ -59,6 +64,16 @@ export default {
                 name: 'Политика конфиденциальности',
                 path: '/privacy',
                 component: resolve(__dirname, 'pages/Privacy.vue'),
+            })
+            routes.push({
+                name: 'Каталог товаров',
+                path: '/catalog',
+                component: resolve(__dirname, 'pages/product/Catalog.vue'),
+            })
+            routes.push({
+                name: 'Товары',
+                path: '/catalog/:name',
+                component: resolve(__dirname, 'pages/product/SingleProduct.vue'),
             })
         }
     },
