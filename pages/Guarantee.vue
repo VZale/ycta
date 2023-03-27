@@ -2,7 +2,7 @@
     <div class="guarantee page">
         <TopBar/>
         <div class="container">
-            <Breadcrumbs/>
+            <Breadcrumbs :menuList="menuList"/>
 
             <h2 class="title">Доставка</h2>
             <div class="page-box">
@@ -49,6 +49,13 @@ export default {
         Footer: () => import("@/components/Footer.vue"),
         Breadcrumbs: () => import("@/components/Breadcrumbs.vue"),
         Consultation: () => import("@/components/Consultation.vue"),
+    },
+    data() {
+        return {
+            menuList: [
+                {title: 'Доставка'},
+            ]
+        }
     }
 }
 </script>

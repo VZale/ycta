@@ -28,7 +28,7 @@
                     <div class="form-items">
                         <button class="button white large" @click="send()">Отправить заявку</button>
                         <p>Нажимая на кнопку, вы соглашаетесь с
-                            <nuxt-link to="/">Политикой конфиденциальности</nuxt-link>
+                            <NuxtLink to="/privacy">Политикой конфиденциальности</NuxtLink>
                         </p>
                     </div>
                 </div>

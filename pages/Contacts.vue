@@ -2,7 +2,7 @@
     <div class="contact page">
         <TopBar/>
         <div class="container">
-            <Breadcrumbs/>
+            <Breadcrumbs :menuList="menuList"/>
             <h2 class="title">Свяжитесь с нами</h2>
 
             <div class="contact-info">
@@ -65,6 +65,9 @@
 <script>
 export default {
     name: "Contacts",
+    mounted() {
+        console.log(this.$route)
+    },
     components: {
         TopBar: () => import('@/components/TopBar.vue'),
         Footer: () => import("@/components/Footer.vue"),
@@ -72,6 +75,13 @@ export default {
         Consultation: () => import("@/components/Consultation.vue"),
         ProductAbout: () => import('@/components/ProductAbout')
     },
+    data() {
+        return {
+            menuList: [
+                {title: 'Контакты'},
+            ]
+        }
+    }
 }
 </script>
 

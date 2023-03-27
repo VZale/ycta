@@ -2,7 +2,7 @@
     <div class="payment page">
         <TopBar/>
         <div class="container">
-            <Breadcrumbs/>
+            <Breadcrumbs :menuList="menuList"/>
             <h2 class="title">Оплата</h2>
             <div class="page-box">
                 <h3 class="sub-title">Способы оплаты</h3>
@@ -48,6 +48,13 @@ export default {
         Footer: () => import("@/components/Footer.vue"),
         Breadcrumbs: () => import("@/components/Breadcrumbs.vue"),
         Consultation: () => import("@/components/Consultation.vue"),
+    },
+    data() {
+        return {
+            menuList: [
+                {title: 'Оплата'},
+            ]
+        }
     }
 }
 </script>

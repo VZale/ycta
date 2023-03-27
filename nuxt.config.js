@@ -68,12 +68,12 @@ export default {
             routes.push({
                 name: 'Каталог товаров',
                 path: '/catalog',
-                component: resolve(__dirname, 'pages/product/Catalog.vue'),
+                component: resolve(__dirname, 'pages/Product/Catalog.vue'),
             })
             routes.push({
                 name: 'Товары',
                 path: '/catalog/:name',
-                component: resolve(__dirname, 'pages/product/SingleProduct.vue'),
+                component: resolve(__dirname, 'pages/Product/SingleProduct.vue'),
             })
         }
     },

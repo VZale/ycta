@@ -1,8 +1,9 @@
 <template>
-    <div>
+    <div class="page">
         <TopBar/>
         <div class="container">
-            <Breadcrumbs/>
+            <Breadcrumbs :menuList="menuList"/>
+
         </div>
         <Footer/>
     </div>
@@ -10,9 +11,28 @@
 
 <script>
 export default {
-    name: "SingleProduct"
+    name: "Single",
+    mounted() {
+        // this.menuList.push({
+        //     title: this.$route.params.name.replaceAll('-', ' ')
+        // })
+        console.log(this.menuList)
+        this.menuList.push({
+            title: this.$route.params.name.replaceAll('-', ' ')
+        })
+    },
+    data() {
+        return {
+            menuList: [
+                {title: 'Каталог товаров', to: '/catalog'},
+            ]
+        }
+    }
 }
 </script>
 
 <style scoped>
+.container {
+    min-height: 700px;
+}
 </style>

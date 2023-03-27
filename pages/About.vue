@@ -3,7 +3,7 @@
         <TopBar/>
         <div class="container">
             <main class="main-screen">
-                <Breadcrumbs/>
+                <Breadcrumbs :menuList="menuList"/>
                 <div class="content">
                     <h2 class="main-title">О компании</h2>
                     <p class="main-description">Строительный Двор «УСТА» — с 2004 года официальный партнер и
@@ -66,7 +66,14 @@
 
 <script>
 export default {
-    name: "About"
+    name: "About",
+    data() {
+        return {
+            menuList: [
+                {label: 'О компании', to: '/about'},
+            ]
+        }
+    }
 }
 </script>
 

@@ -12,13 +12,13 @@
                                 <NuxtLink to="/about">О Компании</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="/about">Доставка</NuxtLink>
+                                <NuxtLink to="/guarantee">Доставка</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="/about">Оплата</NuxtLink>
+                                <NuxtLink to="/payment">Оплата</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="/about">Контакты</NuxtLink>
+                                <NuxtLink to="/contacts">Контакты</NuxtLink>
                             </li>
                         </ul>
                     </div>
@@ -222,11 +222,13 @@ header .left ul {
     box-shadow: 0 4px 20px rgba(55, 57, 64, 0.2);
     border-radius: 12px 0 12px 12px;
     opacity: 0;
+    visibility: hidden;
     transition: all .3s ease-out;
 }
 
 .catalog-menu.is-active {
     opacity: 1;
+    visibility: visible;
 }
 
 .catalog-menu ul li {

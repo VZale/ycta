@@ -2,7 +2,7 @@
     <section class="catalog page">
         <TopBar/>
         <div class="container">
-            <Breadcrumbs/>
+            <Breadcrumbs :menuList="menuList"/>
             <h2 class="title">Каталог товаров</h2>
             <div class="catalog-items">
                 <Card
@@ -21,7 +21,14 @@
 <script>
 export default {
     name: "Catalog",
-    components: {}
+    components: {},
+    data() {
+        return {
+            menuList: [
+                {title: 'Каталог товаров'},
+            ]
+        }
+    }
 }
 </script>
 
