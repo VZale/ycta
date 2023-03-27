@@ -1,27 +1,27 @@
 <template>
     <div>
-        <div class="card" :class="{main: main}" v-if="main">
+        <NuxtLink to="/catalog" class="card" :class="{main: main}" v-if="main">
             <div class="top-content">
                 <h3>{{ title }}</h3>
                 <p>{{ description }}</p>
             </div>
             <button class="button" :class="[...buttonClasses]">{{ buttonText }}</button>
-        </div>
-        <div class="card" v-if="infoProduct">
+        </NuxtLink>
+            <NuxtLink :to="`catalog/${title.replaceAll(' ','-').toLowerCase()}`" class="card" v-if="infoProduct">
             <div class="top-content">
                 <h3>{{ title }}</h3>
             </div>
             <img :src="require(`@/assets/${image}.png`)" :alt="image">
             <button class="button" :class="[...buttonClasses]">{{ buttonText }}</button>
-        </div>
-        <div class="card" :class="{discount: discount}" v-if="discount">
+        </NuxtLink>
+        <NuxtLink to="/catalog" class="card" :class="{discount: discount}" v-if="discount">
             <div class="top-content">
                 <h3>{{ title }}</h3>
                 <p>{{ description }}</p>
             </div>
             <img :src="require(`@/assets/${image}.png`)" :alt="image">
             <button class="button" :class="[...buttonClasses]">{{ buttonText }}</button>
-        </div>
+        </NuxtLink>
     </div>
 </template>
 
@@ -75,6 +75,36 @@ export default {
     overflow: hidden;
     cursor: pointer;
 }
+.card::before,
+.card::after {
+    content: '';
+    position: absolute;
+    background-color: transparent;
+    transition: all .3s ease-out;
+    opacity: 0;
+}
+.card:hover::after,
+.card:hover::before {
+    opacity: 1;
+}
+.card::after{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(50, 52, 59, 0.3);
+    border-radius: 12px;
+}
+.card::before {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url('@/assets/ycta-icons/decor.png');
+    width: 50px;
+    height: 50px;
+    z-index: 2;
+}
+
 .card.main {
     background: var(--red-1);
 }

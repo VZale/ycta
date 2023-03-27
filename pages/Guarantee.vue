@@ -55,9 +55,6 @@ export default {
 
 <style scoped>
 
-.breadcrumbs {
-    margin-top: 32px;
-}
 
 h3 {
     font-weight: 500;

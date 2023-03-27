@@ -53,9 +53,6 @@ export default {
 </script>
 
 <style scoped>
-.breadcrumbs {
-    margin-top: 32px;
-}
 
 .sub-title {
     font-weight: 500;

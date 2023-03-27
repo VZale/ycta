@@ -89,6 +89,7 @@
 
 <script>
 import Vue from "vue"
+
 export default {
     name: "TopBar",
     data() {
@@ -137,7 +138,7 @@ export default {
             this.closeSubCatalogMenu()
             Vue.set(this.subInnerCatalogMenuState, index, true)
         },
-        closeSubCatalogMenu(){
+        closeSubCatalogMenu() {
             for (const n in this.subInnerCatalogMenuState) {
                 Vue.set(this.subInnerCatalogMenuState, n, false)
             }
@@ -155,16 +156,19 @@ header {
     height: 120px;
     padding: 15px 0;
 }
+
 .logo {
     width: 150px;
     height: 100px;
 }
+
 header .container {
     display: grid;
     grid-template-columns: max-content 1fr;
     align-items: center;
     gap: 36px;
 }
+
 header .menu .top {
     display: grid;
     grid-template-columns: max-content 1fr;
@@ -172,39 +176,43 @@ header .menu .top {
     align-items: center;
     gap: 60px;
 }
+
 header .menu {
     position: relative;
     z-index: 10;
 }
+
 header .menu .bottom {
     display: flex;
     gap: 12px;
     grid-template-columns: auto;
 }
+
 header .right {
     display: flex;
     align-items: center;
     gap: 24px;
     position: relative;
 }
+
 header .left ul {
     display: grid;
     grid-template-columns: repeat(4, max-content);
     gap: 24px;
 }
-ul li a {
-    transition: all .3s ease-out;
-}
+
 .buttons {
     display: flex;
     gap: 12px;
 }
+
 .button-item {
     padding: 8px;
     font-size: 18px;
     font-weight: 400;
     transition: all .3s ease-out;
 }
+
 .catalog-menu {
     position: absolute;
     top: 100px;
@@ -216,15 +224,19 @@ ul li a {
     opacity: 0;
     transition: all .3s ease-out;
 }
+
 .catalog-menu.is-active {
     opacity: 1;
 }
+
 .catalog-menu ul li {
     margin-bottom: 16px;
 }
+
 .catalog-menu ul li:last-child {
     margin-bottom: 0;
 }
+
 .inner-catalog-menu {
     position: absolute;
     right: -150px;
@@ -236,27 +248,19 @@ ul li a {
     padding: 24px;
     z-index: -1;
 }
+
 .inner-catalog-menu a {
     max-width: 280px;
     display: inline-block;
 }
-@media (min-width: 1100px) {
-    a:hover {
-        color: var(--gray-4);
-    }
-    .button-item:hover {
-        background-color: var(--white);
-    }
-    .button-item.more-menu:hover {
-        color: var(--black);
-    }
-}
+
 .button-item.more-menu {
     display: grid;
     grid-template-columns: max-content 1fr;
     align-items: center;
     gap: 8px;
 }
+
 .search {
     display: grid;
     grid-template-columns: max-content 1fr;
@@ -270,6 +274,7 @@ ul li a {
     right: 0;
     transition: all .3s ease-out;
 }
+
 .search-content {
     position: absolute;
     top: 50px;
@@ -281,23 +286,28 @@ ul li a {
     opacity: 1;
     transition: all .3s ease-out;
 }
+
 .search-content.is-searched {
     opacity: 1;
 }
+
 .search-content .item {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     gap: 40px;
     place-items: center;
 }
+
 .search-content .info {
     display: grid;
     grid-template-columns: 50px 450px;
     gap: 16px;
 }
+
 .search.is-focus {
     width: 100%;
 }
+
 .search input {
     min-width: 70px;
     height: 100%;
@@ -306,12 +316,14 @@ ul li a {
     font-size: 18px;
     font-weight: 400;
 }
+
 .search input::placeholder {
     color: var(--gray-4);
     font-size: 18px;
     font-weight: 400;
     vertical-align: center;
 }
+
 select {
     background-color: transparent;
     cursor: pointer;

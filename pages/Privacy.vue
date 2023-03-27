@@ -117,9 +117,6 @@ export default {
 </script>
 
 <style scoped>
-.breadcrumbs {
-    margin-top: 32px;
-}
 
 h3 {
     font-weight: 500;

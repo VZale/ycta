@@ -76,9 +76,7 @@ export default {
 </script>
 
 <style scoped>
-.breadcrumbs {
-    margin-top: 32px;
-}
+
 
 .contact-info {
     display: grid;

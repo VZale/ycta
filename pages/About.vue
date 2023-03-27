@@ -83,6 +83,10 @@ export default {
     margin-bottom: 80px;
 }
 
+.breadcrumbs {
+    margin: 0;
+}
+
 .container {
     line-height: 1;
     margin-top: 40px;
