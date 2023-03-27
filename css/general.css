@@ -167,6 +167,10 @@ h2, h3, h4 {
     position: relative;
 }
 
+.page {
+    padding-top: 150px;
+}
+
 .page-box {
     padding: 80px 230px;
     background: var(--white);

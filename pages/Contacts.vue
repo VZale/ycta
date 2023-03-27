@@ -46,7 +46,26 @@
                     </div>
                 </div>
                 <div class="map">
-
+                    <GmapMap
+                        :center="{ lat: 45.036035, lng: 38.97457060000001 }"
+                        :zoom="15"
+                        map-type-id="terrain"
+                        style="width: 100%; height: 100%"
+                    >
+                        <GmapMarker
+                            :position="{ lat: 45.036035, lng: 38.97457060000001 }"
+                            :clickable="true"
+                            :draggable="false"
+                            :icon="{
+                                url: '/ycta-logo-white.png',
+                                scaledSize: { width: 64, height: 64 },
+                                origin: { x: 0, y: 0 },
+                                anchor: { x: 32, y: 32 },
+                                'object-fit': 'cover'
+                              }"
+                            title="Some address"
+                        />
+                    </GmapMap>
                 </div>
             </div>
 
@@ -65,15 +84,12 @@
 <script>
 export default {
     name: "Contacts",
-    mounted() {
-        console.log(this.$route)
-    },
     components: {
         TopBar: () => import('@/components/TopBar.vue'),
         Footer: () => import("@/components/Footer.vue"),
         Breadcrumbs: () => import("@/components/Breadcrumbs.vue"),
         Consultation: () => import("@/components/Consultation.vue"),
-        ProductAbout: () => import('@/components/ProductAbout')
+        ProductAbout: () => import('@/components/ProductAbout'),
     },
     data() {
         return {

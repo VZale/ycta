@@ -176,9 +176,13 @@ export default {
     border-radius: 12px;
 }
 
-.product-about .top.more-content {
+.product-about .top {
     place-items: start;
     gap: 12px;
+}
+
+.product-about .title {
+    margin: 0;
 }
 
 .product-about .more-content li {
