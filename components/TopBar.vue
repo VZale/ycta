@@ -153,8 +153,13 @@ export default {
 
 <style scoped>
 header {
-    height: 120px;
+    height: 125px;
     padding: 15px 0;
+    position: fixed;
+    background-color: var(--gray-1);
+    top: 0;
+    width: 100%;
+    z-index: 20;
 }
 
 .logo {

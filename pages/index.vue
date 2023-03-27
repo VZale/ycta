@@ -95,6 +95,10 @@ export default {
 </script>
 
 <style scoped>
+main {
+    padding-top: 150px;
+}
+
 .catalog {
     margin-top: 48px;
     padding-bottom: 120px;

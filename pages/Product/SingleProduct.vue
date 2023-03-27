@@ -13,10 +13,6 @@
 export default {
     name: "Single",
     mounted() {
-        // this.menuList.push({
-        //     title: this.$route.params.name.replaceAll('-', ' ')
-        // })
-        console.log(this.menuList)
         this.menuList.push({
             title: this.$route.params.name.replaceAll('-', ' ')
         })
