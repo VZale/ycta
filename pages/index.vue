@@ -109,4 +109,10 @@ main {
     gap: 12px;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
+
+@media (max-width: 768px) {
+    .catalog .items {
+        padding-top: 50px;
+    }
+}
 </style>

@@ -177,4 +177,59 @@ export default {
         grid-column: 1 / 2 span;
     }
 }
+
+@media (max-width: 1375px) {
+    .guarantee .title {
+        text-align: center;
+    }
+    .guarantee-item:last-child {
+        grid-column: 1 / 2 span;
+    }
+}
+@media (max-width: 1000px) {
+    .guarantee-items {
+        grid-template-columns: 1fr;
+    }
+    .guarantee-item:last-child {
+        grid-column: auto;
+    }
+    .main-title {
+        font-size: 36px;
+    }
+    .main-description {
+        font-size: 16px;
+    }
+    .title {
+        font-size: 28px;
+    }
+    .advantages {
+        padding: 28px;
+    }
+    .advantages .items {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    .advantages .items span {
+        font-size: 16px;
+    }
+    .advantages .items span:first-child {
+        grid-column-start: 1;
+        grid-column-end: five;
+        grid-row-start: row1-start;
+        grid-row-end: 1;
+    }
+    .advantages .items span:nth-child(2) {
+        grid-column-start: 1;
+        grid-column-end: five;
+        grid-row-start: row1-start;
+        grid-row-end: 2;
+    }
+    .advantages .items span:nth-child(3) {
+        grid-area: 3/2;
+    }
+    .advantages .items span:nth-child(4) {
+        grid-area: 3/3;
+    }
+}
 </style>

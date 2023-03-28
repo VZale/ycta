@@ -191,4 +191,47 @@ button {
     right: 40px;
     cursor: pointer;
 }
+
+@media (max-width: 1000px) {
+    .consultation {
+        max-width: 100%;
+        padding: 0;
+        margin: 40px auto 0;
+    }
+    .consultation .box {
+        grid-template-columns: 1fr;
+        padding: 28px;
+        border-radius: 0;
+    }
+    .consultation .item .top {
+        grid-template-columns: max-content 1fr;
+    }
+    .top h2 {
+        font-size: 28px;
+        line-height: 110%;
+        max-width: 100%;
+    }
+    input,
+    .item p {
+        font-size: 16px;
+        max-width: 100%;
+    }
+    .form-item.is-focus input {
+        font-size: 12px;
+    }
+}
+@media (max-width: 768px) {
+    .item.form .form-items {
+        grid-template-columns: 1fr;
+    }
+    .item.form .form-items:last-child {
+        margin-bottom: 0;
+    }
+    .top h2 {
+        max-width: 320px;
+    }
+    .top img {
+        display: none;
+    }
+}
 </style>

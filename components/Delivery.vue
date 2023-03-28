@@ -94,4 +94,41 @@ export default {
     font-weight: 500;
     width: max-content;
 }
+
+@media (max-width: 1000px) {
+    .delivery {
+        padding: 40px 0 60px;
+    }
+    .delivery .container {
+        grid-template-columns: 1fr;
+    }
+    .button.black {
+        background-color: var(--gray-2);
+        color: var(--black);
+    }
+}
+@media (max-width: 768px) {
+    .delivery ul {
+        grid-template-columns: 1fr;
+    }
+    .delivery .item h2 {
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 110%;
+    }
+    .delivery ul,
+    .delivery p {
+        margin-bottom: 24px;
+        font-size: 16px;
+        font-weight: 400;
+    }
+    button {
+        font-size: 16px;
+    }
+    .delivery a {
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+    }
+}
 </style>

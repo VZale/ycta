@@ -163,4 +163,14 @@ export default {
     border-radius: 12px;
 }
 
+@media (max-width: 1000px) {
+    .collaboration .top {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .collaboration .top .right {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
 </style>

@@ -202,4 +202,11 @@ export default {
 .product-about .more-description p:last-child {
     margin: 0;
 }
+
+@media (max-width: 1000px) {
+    .product-about .top {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
 </style>

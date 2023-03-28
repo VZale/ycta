@@ -64,7 +64,7 @@ export default {
 <style scoped>
 .card {
     position: relative;
-    height: 420px;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     color: #32343B;
@@ -158,5 +158,11 @@ export default {
     border: 2px solid #EDEFF4;
     font-size: 18px;
     width: fit-content;
+}
+
+@media (max-width: 768px) {
+    .card {
+        min-height: 350px;
+    }
 }
 </style>

@@ -25,7 +25,7 @@
                     <div class="right">
                         <a class="phone" href="#">8 (918) 040 02-00</a>
                         <a class="email" href="#">sd-usta@mail.ru</a>
-                        <select name="" id="">
+                        <select>
                             <option>Краснодарский край</option>
                             <option>Краснодарский край</option>
                         </select>
@@ -335,6 +335,7 @@ select {
     background-color: transparent;
     cursor: pointer;
     font-size: 18px;
+    outline: none;
     color: var(--black);
 }
 </style>
