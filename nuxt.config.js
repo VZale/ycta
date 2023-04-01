@@ -32,48 +32,53 @@ export default {
             routes.push({
                 name: '404',
                 path: '*',
-                component: resolve(__dirname, 'pages/404.vue')
+                component: resolve(__dirname, 'pages/404')
             })
             routes.push({
                 name: 'Главная',
                 path: '/',
-                component: resolve(__dirname, 'pages/index.vue'),
+                component: resolve(__dirname, 'pages/index'),
                 title: 'Главная'
             })
             routes.push({
                 name: 'О Компании',
                 path: '/about',
-                component: resolve(__dirname, 'pages/About.vue'),
+                component: resolve(__dirname, 'pages/About'),
             })
             routes.push({
                 name: 'Доставка',
                 path: '/guarantee',
-                component: resolve(__dirname, 'pages/Guarantee.vue'),
+                component: resolve(__dirname, 'pages/Guarantee'),
             })
             routes.push({
                 name: 'Оплата',
                 path: '/payment',
-                component: resolve(__dirname, 'pages/Payment.vue'),
+                component: resolve(__dirname, 'pages/Payment'),
             })
             routes.push({
                 name: 'Контакты',
                 path: '/contacts',
-                component: resolve(__dirname, 'pages/Contacts.vue'),
+                component: resolve(__dirname, 'pages/Contacts'),
             })
             routes.push({
                 name: 'Политика конфиденциальности',
                 path: '/privacy',
-                component: resolve(__dirname, 'pages/Privacy.vue'),
+                component: resolve(__dirname, 'pages/Privacy'),
             })
             routes.push({
                 name: 'Каталог товаров',
                 path: '/catalog',
-                component: resolve(__dirname, 'pages/Product/Catalog.vue'),
+                component: resolve(__dirname, 'pages/Product/Catalog'),
             })
             routes.push({
                 name: 'Товары',
                 path: '/catalog/:name',
-                component: resolve(__dirname, 'pages/Product/SingleProduct.vue'),
+                component: resolve(__dirname, 'pages/Product/ProductCatalog'),
+            })
+            routes.push({
+                name: 'Товар',
+                path: '/catalog/:name/:id',
+                component: resolve(__dirname, 'pages/Product/SingleProduct'),
             })
         }
     },

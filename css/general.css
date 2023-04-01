@@ -102,6 +102,7 @@ body.is-lock {
     transition: all .3s ease-in-out;
     position: relative;
     z-index: 3;
+    font-family: 'Inter', sans-serif;
 }
 
 h2, h3, h4 {

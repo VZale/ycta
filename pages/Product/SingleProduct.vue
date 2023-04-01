@@ -3,7 +3,6 @@
         <TopBar/>
         <div class="container">
             <Breadcrumbs :menuList="menuList"/>
-
         </div>
         <Footer/>
     </div>
@@ -11,10 +10,10 @@
 
 <script>
 export default {
-    name: "Single",
+    name: "SingleProduct",
     mounted() {
         this.menuList.push({
-            title: this.$route.params.name.replaceAll('-', ' ')
+            title: this.$route.params.id.replaceAll('-', ' ')
         })
     },
     data() {
