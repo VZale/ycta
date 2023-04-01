@@ -8,7 +8,7 @@
                 <div class="right">
                     <div class="top-content">
                         <h2 class="title">{{
-                                $route.params.name.replaceAll('-', ' ').charAt(0).toUpperCase() + $route.params.name.replaceAll('-', ' ').slice(1)
+                                $route.params?.name?.replaceAll('-', ' ').charAt(0).toUpperCase() + $route.params?.name?.replaceAll('-', ' ').slice(1)
                             }}</h2>
                         <p class="price-filter"> По цене</p>
                     </div>
