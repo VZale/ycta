@@ -26,7 +26,7 @@
                             {{ item.size }}
                         </div>
                     </div>
-                    <div class="pagination">1, 2 ,3</div>
+                    <Pagination/>
                     <div class="info">
                         <div class="text-content">
                             <h3 class="subtitle">Характеристики и свойства кирпича ручной формовки</h3>
@@ -112,6 +112,7 @@ import Vue from "vue"
 export default {
     name: "ProductCatalog",
     components: {
+        Pagination: () => import('@/components/Pagination'),
         RelatedProducts: () => import('@/components/RelatedProducts'),
         Card: () => import('@/components/Card'),
         ProductFilter: () => import('@/components/ProductFilter'),
@@ -183,10 +184,6 @@ export default {
     display: grid;
     gap: 12px;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-.info {
-    margin: 80px 0 0;
 }
 
 .info .text-content {
