@@ -44,6 +44,7 @@
 
 <script>
 import Vue from "vue";
+
 export default {
     name: "Consultation",
     props: {
@@ -91,6 +92,11 @@ export default {
 .consultation {
     margin: 80px 0;
 }
+
+.consultation .container {
+    padding: 0;
+}
+
 .consultation .box {
     border-radius: 12px;
     padding: 40px;
@@ -101,45 +107,55 @@ export default {
     gap: 12px;
     place-items: center stretch;
 }
+
 .consultation .item .top {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     margin-bottom: 24px;
     place-items: end;
 }
+
 .top h2 {
     font-weight: 500;
     font-size: 52px;
     line-height: 105%;
     max-width: 430px;
 }
+
 .item p {
     max-width: 450px;
 }
+
 .item.form .form-items {
     display: grid;
     grid-template-columns: max-content 1fr;
     gap: 12px;
     margin-bottom: 24px;
 }
+
 .form-items .form-item {
     background: #C54449;
     border-radius: 8px;
     height: 53px;
     position: relative;
 }
+
 .form-items p {
     color: #E7B0B2;
 }
+
 .form-items a {
     color: var(--white);
 }
+
 .form-item:focus {
     background-color: black;
 }
+
 .form-items .form-items:last-child {
     margin-bottom: 0;
 }
+
 .form-items .form-item p {
     position: absolute;
     top: 50%;
@@ -149,10 +165,12 @@ export default {
     z-index: 2;
     transition: all .3s ease-in-out;
 }
+
 .form-items .form-item.is-focus p {
     font-size: 12px;
     top: 17px;
 }
+
 input {
     height: 100%;
     width: 100%;
@@ -165,10 +183,12 @@ input {
     font-weight: 400;
     padding: 35px 14px;
 }
+
 button {
     font-size: 18px;
     font-weight: 500;
 }
+
 .consultation.is-modal {
     position: absolute;
     margin: 0;
@@ -176,15 +196,19 @@ button {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 .consultation.successfully .box {
     display: none;
 }
+
 .consultation.is-modal .container {
     padding: 0;
 }
+
 .consultation.is-modal .box {
     grid-template-columns: 1fr;
 }
+
 .close {
     position: absolute;
     top: 30px;
@@ -198,38 +222,47 @@ button {
         padding: 0;
         margin: 40px auto 0;
     }
+
     .consultation .box {
         grid-template-columns: 1fr;
         padding: 28px;
         border-radius: 0;
     }
+
     .consultation .item .top {
         grid-template-columns: max-content 1fr;
     }
+
     .top h2 {
         font-size: 28px;
         line-height: 110%;
         max-width: 100%;
     }
+
     input,
     .item p {
         font-size: 16px;
         max-width: 100%;
     }
+
     .form-item.is-focus input {
         font-size: 12px;
     }
 }
+
 @media (max-width: 768px) {
     .item.form .form-items {
         grid-template-columns: 1fr;
     }
+
     .item.form .form-items:last-child {
         margin-bottom: 0;
     }
+
     .top h2 {
         max-width: 320px;
     }
+
     .top img {
         display: none;
     }

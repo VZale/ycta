@@ -7,7 +7,7 @@
             </div>
             <button class="button" :class="[...buttonClasses]">{{ buttonText }}</button>
         </div>
-        <div @click="goTo(`/catalog/${title.replaceAll(' ','-').toLowerCase()}`)" class="card" v-if="infoProduct">
+        <div @click="goTo(`/catalog/${category.replaceAll(' ','-').toLowerCase()}/${title.replaceAll(' ','-').toLowerCase()}`)" class="card" v-if="infoProduct">
             <div class="top-content">
                 <h3>{{ title }}</h3>
             </div>
@@ -57,13 +57,13 @@ export default {
         buttonText: {
             type: String
         },
-        id: {
+        category: {
             type: String
         }
     },
     methods: {
         goTo(route) {
-            this.$router.push(`${route}${this.id ? `/${this.id.replaceAll(' ', '-')}` : ''}`)
+            this.$router.push(`${route}`)
         }
     }
 }

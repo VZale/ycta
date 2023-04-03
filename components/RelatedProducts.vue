@@ -87,6 +87,11 @@ import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 export default {
     name: "RelatedProducts",
+    props:{
+        relatedProducts: {
+            type: Object,
+        }
+    },
     components: {
         VueSlickCarousel
     },

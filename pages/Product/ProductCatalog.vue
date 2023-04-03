@@ -15,7 +15,7 @@
                     <div class="product-list">
                         <Card
                             :title="'Кирпич ручной формовки «Монс-Роял» WDF'"
-                            :id="'Кирпич ручной формовки «Монс-Роял» WDF'"
+                            :category="'Тротуарная плитка'"
                             :info-product="true"
                             :button-text="'159 моделей'"
                             :button-classes="['small white']"
