@@ -7,8 +7,9 @@
                 <ProductFilter @show-result="result"/>
                 <div class="right">
                     <div class="top-content">
+                        {{Object.values(pageData['subcategories']).find(subcategory => subcategory._id === product?.sub_category_id)?.name}}
                         <h2 class="title">{{
-                                $route.params?.name?.replaceAll('-', ' ').charAt(0).toUpperCase() + $route.params?.name?.replaceAll('-', ' ').slice(1)
+                                $route.params?.subcategory_name ? $route.params?.subcategory_name?.replaceAll('-', ' ').charAt(0).toUpperCase() + $route.params?.subcategory_name?.replaceAll('-', ' ').slice(1) : $route.params?.name?.replaceAll('-', ' ').charAt(0).toUpperCase() + $route.params?.name?.replaceAll('-', ' ').slice(1)
                             }}</h2>
                         <p class="price-filter" @click="filterByPrice()"> По цене</p>
                     </div>
@@ -24,7 +25,7 @@
                                   :isHidden="product.hidden"
                                   :button-text="'моделей'"
                                   :pathName="'Товар'"
-                                  :pathParams="[`${Object.values(pageData['categories']).find(category => category._id === product.category_id)?.name}`,`${Object.values(pageData['subcategories']).find(subcategory => subcategory._id === product.sub_category_id)?.name}`,`${product.name}`,`${product._id}`]"
+                                  :pathParams="[`${Object.values(pageData['categories']).find(category => category._id === product.category_id)?.name}`,`${Object.values(pageData['subcategories']).find(subcategory => subcategory._id === product?.sub_category_id)?.name}`,`${product.name}`,`${product._id}`]"
                             />
                         </template>
                     </div>
@@ -120,25 +121,21 @@ export default {
         ProductFilter: () => import('@/components/ProductFilter'),
     },
     mounted() {
-        console.log(this.$route.params)
         if (this.$route.params.category_name) {
-            this.menuList.push({
-                title: this.$route.params.category_name.replaceAll('-', ' ')
-            })
-            this.$store.dispatch('getSubcategoryProducts', this.$route.params._id)
+            this.$store.dispatch('getSubcategoryProducts', this.$route.params.id)
         } else {
             this.menuList.push({
-                title: this.$route.params.name.replaceAll('-', ' ')
+                title: this.$route.params?.name?.replaceAll('-', ' ')
             })
             this.$store.dispatch('getProducts')
         }
-        console.log(this.pageData['products'])
         this.updateFilteredProducts()
     },
     data() {
         return {
             menuList: [
                 {title: 'Каталог товаров', to: '/catalog'},
+                {title: this.$route.params?.category_name, to: `/${this.$route.params.category_name?.replaceAll('-', ' ')}`},
             ],
             filteredData: [],
             filteredProducts: [],
