@@ -140,7 +140,8 @@ export default {
             ],
             filteredData: [],
             filteredProducts: [],
-            sortOrder: "asc",
+            price: false,
+            priceType: '',
         }
     },
     computed: {
@@ -151,7 +152,12 @@ export default {
             Vue.set(this, 'filteredData', data)
         },
         filterByPrice() {
-            this.$store.dispatch('filterByPrice')
+            this.price = !this.price
+            this.price ? this.priceType = 'lower' : this.priceType = 'hider'
+            this.$store.dispatch('filterByPrice', {
+                data: this.filteredData,
+                price: this.priceType
+            })
         },
     },
 }

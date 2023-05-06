@@ -1,5 +1,5 @@
 <template>
-    <div class="pagination">
+    <div class="pagination" v-if="total > 18">
         <button @click="setCurrentPage(currentPage - 1)" class="slide-button"><img
             :src="require('@/assets/ycta-icons/arrow-left.svg')"
             alt=""></button>
@@ -18,16 +18,18 @@
 
 <script>
 
+import {mapGetters} from "vuex";
+
 export default {
     name: "Pagination",
     data() {
         return {
-            total: 260,
-            currentPage: 1,
-            limit: 25,
+            currentPage: 0,
+            limit: 18,
         }
     },
     computed: {
+        ...mapGetters(['total']),
         maxPages(){
             return Math.ceil(this.total / this.limit)
         },
@@ -54,6 +56,10 @@ export default {
                 return
             }
             this.currentPage = page
+
+            this.$store.dispatch('getProducts', {
+                offset: --page
+            })
         },
     },
 }

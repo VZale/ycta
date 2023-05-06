@@ -6,7 +6,8 @@ export const state = {
     reletedProducts: {},
     searchedProducts: {},
     currentProduct: {},
-    sameProducts: {}
+    sameProducts: {},
+    total: 0
 }
 
 export const getters = {
@@ -26,6 +27,9 @@ export const getters = {
     },
     sameProducts() {
         return state.sameProducts
+    },
+    total() {
+        return state.total
     }
 }
 
@@ -61,14 +65,17 @@ export const mutations = {
 }
 
 const actions = {
-    getProducts() {
-        RestService.get('/products')
+    getProducts(_, data) {
+        RestService.get('/products', {
+            limit: 18,
+            offset: data?.offset || 0
+        })
             .then(ans => {
                 this.commit('setPageData', {
                     data: ans,
                     page: 'products'
                 })
-                this.commit('initPage', 'products')
+                Vue.set(state, 'total', Object.keys(ans).length)
             })
     },
     getSameproducts(_, data) {
@@ -82,7 +89,7 @@ const actions = {
             }
 
             Vue.set(state, 'sameProducts', sameProducts)
-        });
+        })
     },
     search(context, search) {
         RestService.get(`/products/search?name=${search}`)

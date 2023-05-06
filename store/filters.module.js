@@ -56,8 +56,9 @@ const actions = {
                 })
             })
     },
-    filterByPrice() {
-        RestService.post('/filters/search/products', filteredData)
+    filterByPrice(_, data) {
+        const {price, ...dataWithoutPrice} = data
+        RestService.post(`/filters/search/products?price=${price}`, dataWithoutPrice.data)
             .then(ans => {
                 this.commit('setPageData', {
                     data: ans,
