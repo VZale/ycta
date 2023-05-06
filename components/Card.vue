@@ -1,35 +1,67 @@
 <template>
-    <div>
-        <div @click="goTo('catalog')" class="card" :class="{main: main}" v-if="main">
-            <div class="top-content">
-                <h3>{{ title }}</h3>
-                <p>{{ description }}</p>
+    <div class="card" :style="{ backgroundColor: type === 'decor' ? 'var(--red-1)' : '' }" @click="goTo()">
+        <template v-if="type !== 'decor'">
+            <h2 class="card-title" v-if="type === 'Category'">{{ title }}</h2>
+            <div class="more-info" v-if="labels">
+                <div class="markets">
+                    <span class="material-icons percent"
+                          v-if="labels[0] === 'discount' || labels[1] === 'discount'">percent</span>
+                    <span class="discount" v-if="labels[0] === 'hot' || labels[1] === 'hot'">Хит продаж</span>
+                </div>
             </div>
-            <button class="button" :class="[...buttonClasses]">{{ buttonText }}</button>
-        </div>
-        <div @click="goTo(`/catalog/${category.replaceAll(' ','-').toLowerCase()}/${title.replaceAll(' ','-').toLowerCase()}`)" class="card" v-if="infoProduct">
-            <div class="top-content">
-                <h3>{{ title }}</h3>
+            <img
+                :src="image !== 'no-image' ? 'https://api.enternaloptimist.com/file/download/'+ image : require(`@/assets/no-image.png`)"
+                :alt="image">
+            <div class="product-info" v-if="type === 'product'">
+                <span class="price">{{ price }}</span>
+                <span class="sub-title">{{ title }}</span>
             </div>
-            <img :src="require(`@/assets/${image}.png`)" :alt="image">
-            <button class="button" :class="[...buttonClasses]">{{ buttonText }}</button>
-        </div>
-        <div @click="goTo('catalog')" class="card" :class="{discount: discount}" v-if="discount">
-            <div class="top-content">
-                <h3>{{ title }}</h3>
-                <p>{{ description }}</p>
+            <ButtonBox v-if="type === 'Category' && type !== 'product'" :total="total" :design="design"
+                       :title="buttonText"/>
+        </template>
+        <template v-else>
+            <div class="decor">
+                <div class="head">
+                    <h2 class="title">{{ title }}</h2>
+                    <p>{{ description }}</p>
+                </div>
+                <!--                <img-->
+                <!--                    v-if="image"-->
+                <!--                    :src="image !== 'no-image' ? 'https://api.enternaloptimist.com/file/download/'+ image : require(`@/assets/no-image.png`)"-->
+                <!--                    :alt="image">-->
+                <div class="product-info" v-if="type === 'product'">
+                    <span class="price">{{ price }}</span>
+                    <span class="sub-title">{{ title }}</span>
+                </div>
+                <ButtonBox :design="design" :title="buttonText"/>
             </div>
-            <img :src="require(`@/assets/${image}.png`)" :alt="image">
-            <button class="button" :class="[...buttonClasses]">{{ buttonText }}</button>
-        </div>
+        </template>
     </div>
 </template>
 
 <script>
+import {mapGetters} from "vuex"
+
 export default {
     name: "Card",
     props: {
-        main: {
+        id: {
+            type: Object
+        },
+        type: {
+            type: String
+        },
+        isHidden: {
+            type: Boolean
+        },
+        price: {
+            type: Number
+        },
+        options: {
+            type: Boolean,
+            default: true
+        },
+        product: {
             type: Boolean,
             default: false
         },
@@ -37,9 +69,8 @@ export default {
             type: Boolean,
             default: false
         },
-        discount: {
-            type: Boolean,
-            default: false,
+        labels: {
+            type: Array
         },
         title: {
             type: String,
@@ -51,7 +82,7 @@ export default {
             type: String,
             default: 'no-image'
         },
-        buttonClasses: {
+        design: {
             type: Array
         },
         buttonText: {
@@ -59,32 +90,100 @@ export default {
         },
         category: {
             type: String
+        },
+        total: {
+            type: Number
+        },
+        pathName: {
+            type: String
+        },
+        pathParams: {
+            type: Array
         }
     },
+    components: {
+        ButtonBox: () => import('@/components/ButtonBox'),
+    },
+    computed: {
+        ...mapGetters(['chosenProducts', 'pageData'])
+    },
     methods: {
-        goTo(route) {
-            this.$router.push(`${route}`)
+        chooseProduct(product) {
+            if (!this.relatedProducts) {
+                return
+            }
+
+            this.$store.commit('chooseProduct', {
+                id: product._id,
+                state: this.chosenProducts[product._id]?.state,
+                data: product
+            })
+        },
+        goTo() {
+            if (!this.pathName) {
+                return
+            }
+
+            if (this.type === 'product') {
+                this.$router.push({
+                    name: `${this.pathName}`,
+                    params: {
+                        category_name: this.pathParams[0].replace(' ', '-').toLowerCase() || '',
+                        subcategory_name: this.pathParams[1].replace(' ', '-').toLowerCase() || '',
+                        name: this.pathParams[2].replace(' ', '-').toLowerCase() || '',
+                        id: this.pathParams[3] || ''
+                    }
+                })
+                return
+            }
+
+            if (this.pathName) {
+                this.$router.push({
+                    name: `${this.pathName}`,
+                    ...(this.pathParams && this.pathParams.length
+                        ? {
+                            params: {
+                                name: this.pathParams[0].replace(' ', '-').toLowerCase() || '',
+                                id: this.pathParams[1] || ''
+                            }
+                        }
+                        : {})
+                })
+            } else {
+                console.error('Path name is not defined')
+            }
+
         }
     }
 }
 </script>
 
 <style scoped>
+.card .decor,
 .card {
     position: relative;
-    min-height: 100%;
     display: flex;
     flex-direction: column;
-    color: #32343B;
     justify-content: space-between;
+    color: #32343B;
     background-color: var(--white);
     border-radius: 12px;
     padding: 24px;
     overflow: hidden;
     cursor: pointer;
+    min-height: 400px;
 }
 
-.card::before,
+.card .decor {
+    padding: 0;
+    background-color: var(--red-1);
+    color: var(--white);
+}
+
+.card .decor h2 {
+    font-size: 40px;
+}
+
 .card::after {
     content: '';
     position: absolute;
@@ -93,8 +192,12 @@ export default {
     opacity: 0;
 }
 
-.card:hover::after,
-.card:hover::before {
+.card:hover .img-content {
+    opacity: 1;
+    visibility: visible;
+}
+
+.card:hover::after {
     opacity: 1;
 }
 
@@ -107,14 +210,67 @@ export default {
     border-radius: 12px;
 }
 
-.card::before {
+.card img {
+    height: 150px;
+    object-fit: contain;
+}
+
+.markers {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 140%;
+    position: relative;
+    z-index: 5;
+}
+
+.percent,
+.discount {
+    display: inline-block;
+}
+
+.percent {
+    border-radius: 100%;
+    color: var(--white);
+    padding: 6px;
+    font-size: 12px;
+    background-color: var(--black);
+}
+
+.discount {
+    padding: 6px 10px;
+    border-radius: 20px;
+    color: var(--white);
+    background-color: var(--red-1);
+}
+
+.card .img-content {
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-image: url('@/assets/ycta-icons/decor.png');
-    width: 50px;
-    height: 50px;
-    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    gap: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease-in-out;
+}
+
+.img-content span {
+    padding: 10px;
+    border-radius: 100%;
+    transition: all .3s ease-in-out;
+    background-color: var(--white);
+}
+
+.img-content span:hover {
+    color: var(--white);
+    background-color: var(--red-1);
 }
 
 .card.main {
@@ -178,6 +334,78 @@ export default {
     border: 2px solid #EDEFF4;
     font-size: 18px;
     width: fit-content;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-info .price {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 120%;
+}
+
+.product-info .sub-title {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 140%;
+}
+
+.more-info {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    place-items: center;
+    place-content: inherit;
+}
+
+.checkbox {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox p {
+    padding-left: 10px;
+    white-space: nowrap;
+}
+
+.checkbox span {
+    display: inline-block;
+    border: 2px solid var(--gray-2);
+    border-radius: 3px;
+    width: 16px;
+    height: 16px;
+    position: relative;
+}
+
+.checkbox span::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+    background-color: var(--red-1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease-in-out;
+}
+
+.checkbox span.checked::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: 500;
 }
 
 @media (max-width: 768px) {

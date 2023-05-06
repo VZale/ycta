@@ -6,15 +6,16 @@
                 <img :src="require('@/assets/ycta-icons/arrow.png')" alt="">
             </div>
             <div class="filters">
-                <div class="scroll-item" v-for="(item, i) in productFilter" :key="i">
+                <div class="scroll-item" v-for="(item, i) in allFilters" :key="i">
                     <div class="head" :class="{'filter-is-open': productFilterState[i]?.state}"
                          @click="openScroller(i)">
-                        {{ item.title }}
+                        {{ item.name }}
                         <img :src="require('@/assets/ycta-icons/arrow.png')" alt="">
                     </div>
-                    <div class="scroll-content">
+                    <div class="scroll-content" v-show="productFilterState[i]?.state">
+
                         <div class="item" :class="{'is-checked': productFilterState[i]?.[n]}" @click="setCheckbox(i,j)"
-                             v-for="(n,j) in item.items" :key="j">
+                             v-for="(n,j) in item.options" :key="j">
                             {{ n }}
                         </div>
                     </div>
@@ -30,38 +31,33 @@
 
 <script>
 import Vue from "vue"
+import {mapGetters} from "vuex"
 
 export default {
     name: "ProductFilter",
     mounted() {
-        for (const item in this.productFilter) {
-            Vue.set(this.productFilterState, item, {})
-            Vue.set(this.productFilterChecked, item, [])
-            Vue.set(this.productFilterState[item], 'state', false)
-            for (const n in this.productFilter[item].items) {
-                Vue.set(this.productFilterState[item], this.productFilter[item].items[n], false)
-            }
-        }
+        this.$store.dispatch('getAllFilter')
     },
     data() {
         return {
             showFilter: false,
-            productFilter: {
-                colors: {
-                    title: "Цвет",
-                    items: ['red', 'white', 'black']
-                },
-                sizes: {
-                    title: "Размеры",
-                    items: ['200x300', '400x400']
-                },
-                formats: {
-                    title: "Формат",
-                    items: ['2d', '1d', '2x']
-                }
-            },
             productFilterState: {},
             productFilterChecked: {}
+        }
+    },
+    computed: {
+        ...mapGetters(['filters']),
+        allFilters() {
+            for (const item in this.filters) {
+                Vue.set(this.productFilterState, item, {})
+                Vue.set(this.productFilterChecked, item, [])
+                Vue.set(this.productFilterState[item], 'state', false)
+                for (const n in this.filters[item].options) {
+                    Vue.set(this.productFilterState[item], this.filters[item].options[n], false)
+                }
+            }
+
+            return this.filters
         }
     },
     methods: {
@@ -70,7 +66,7 @@ export default {
         },
         setCheckbox(filterName, index) {
             const checkedItems = this.productFilterChecked[filterName]
-            const value = this.productFilter[filterName].items[index]
+            const value = this.filters[filterName].options[index]
 
             Vue.set(this.productFilterState[filterName], value, !this.productFilterState[filterName][value])
 
@@ -87,6 +83,7 @@ export default {
 
         },
         showResult() {
+            this.$store.dispatch('applyFilter', this.productFilterChecked)
             this.$emit("show-result", this.productFilterChecked)
         },
         clearFilter() {

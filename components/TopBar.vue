@@ -25,25 +25,27 @@
                     <div class="right">
                         <a class="phone" href="#">8 (918) 040 02-00</a>
                         <a class="email" href="#">sd-usta@mail.ru</a>
-                        <select>
-                            <option>Краснодарский край</option>
-                            <option>Краснодарский край</option>
-                        </select>
+                        <!--                        <select>-->
+                        <!--                            <option>Краснодарский край</option>-->
+                        <!--                            <option>Краснодарский край</option>-->
+                        <!--                        </select>-->
                         <div class="search" :class="{'is-focus': isFocused}">
                             <span class="material-icons">search</span>
                             <input v-model="search" type="text" @keypress="setSearched()" placeholder="Поиск"
                                    @focus="isFocused = true"
-                                   @blur="isFocused = false">
+                                   @blur="isFocused = false"
+                                   @keyup.enter="$router.push({name: 'Поиск', params: {name: search}})"
+                            >
                             <div class="search-content" v-show="isSearched && isFocused">
-                                <div class="item">
+                                <div class="item" v-for="(product, i) in searchedProducts" :key="i">
                                     <div class="info">
                                         <img :src="require('@/assets/product-1.png')" alt="">
                                         <NuxtLink
-                                            to="/catalog/кирпич-строительный-рифлёный-облегченный-«Прохладный»-М200;-1,4нф">
-                                            Кирпич строительный рифлёный облегченный «Прохладный» М200; 1,4нф
+                                            :to="`/catalog/${product.name.replace(' ', '-').toLowerCase()}`">
+                                            {{ product.name }}
                                         </NuxtLink>
                                     </div>
-                                    <p>16.00 ₽</p>
+                                    <p>{{ product.price }} ₽</p>
                                 </div>
                             </div>
                         </div>
@@ -55,28 +57,28 @@
                         <span class="material-icons">{{ catalogMenu ? 'close' : 'menu' }}</span>
                         Каталог
                     </button>
-                    <NuxtLink to="/catalog/тротуарная-плитка" class="button gray-2 button-item">
-                        Тротуарная плитка
+                    <NuxtLink v-for="(item,i) in Object.values(pageData.categories).slice(0, 3)" :key="i"
+                              class="button gray-2 button-item"
+                              :to="{ name: 'Каталог товаров', params: {name: item.name.replace(' ', '-').toLowerCase(), id: item._id }}">
+                        {{ item.name }}
                     </NuxtLink>
-                    <NuxtLink to="/catalog/облицовочный-кирпич-керамический" class="button gray-2 button-item">
-                        Облицовочный кирпич керамический
-                    </NuxtLink>
-                    <NuxtLink to="/catalog/керамические-поризованные-блоки" class="button gray-2 button-item">
-                        Керамические поризованные блоки
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="button gray-2 button-item">
-                        Еще +7
+                    <NuxtLink to="/catalog" class="button gray-2 button-item" v-if="totalCategories > 3">
+                        Еще +{{ totalCategories - 3 }}
                     </NuxtLink>
                 </div>
                 <div class="catalog-menu" :class="{'is-active': catalogMenu}">
                     <ul>
-                        <li v-for="(n, index) in innerCatalogMenu" :key="index">
+                        <li v-for="(n, index) in pageData['categories']" :key="index">
                             <span class="link" @click="openSubCatalogMenu(index)">
-                                {{ n.title }}
+                                {{ n.name }}
                             </span>
-                            <ul class="inner-catalog-menu" v-show="subInnerCatalogMenuState[index]">
-                                <li v-for="(item, i) in innerCatalogMenu[index].subCatalogMenu" :key="i">
-                                    <NuxtLink :to="`/${item}`">{{ i }}</NuxtLink>
+                            <ul class="inner-catalog-menu" v-show="subInnerCatalogMenuState[index]"
+                                v-if="Object.keys(n.sub_categories).length">
+                                <li v-for="(sub, index) in n.sub_categories" :key="index">
+                                    <NuxtLink
+                                        :to="{ name: 'Каталог подтоваров', params: {category_name: n.name.replace(' ', '-').toLowerCase(), subcategory_name: sub.name.replace(' ', '-').toLowerCase(), id: sub._id }}">
+                                        {{ sub.name }}
+                                    </NuxtLink>
                                 </li>
                             </ul>
                         </li>
@@ -89,6 +91,7 @@
 
 <script>
 import Vue from "vue"
+import {mapGetters} from "vuex"
 
 export default {
     name: "TopBar",
@@ -98,37 +101,55 @@ export default {
             catalogMenu: false,
             isFocused: false,
             isSearched: false,
-            innerCatalogMenu: {
-                0: {
-                    title: 'Облицовочный кирпич керамический',
-                    subCatalogMenu: {
-                        'Baksteen': 'baksteen',
-                        'Екатеринославский кирпич': 'eкатеринославский-кирпич',
-                        'Богадинский кирпичный завод': 'богадинский-кирпичный-завод',
-                    },
-                },
-                1: {
-                    title: 'Забутовочный кирпич (рядовой)',
-                    subCatalogMenu: {
-                        'Baksteen2': 'baksteen2',
-                        'Екатеринославский кирпич2': 'eкатеринославский-кирпич2',
-                        'Богадинский кирпичный завод2': 'богадинский-кирпичный-завод2',
-                    },
-                }
+            subInnerCatalogMenuState: [],
+            products: [{
+                name: 'Test',
+                price: '20'
             },
-            subInnerCatalogMenuState: []
+                {
+                    name: 'Test2',
+                    price: '20'
+                }, {
+                    name: 'Test31',
+                    price: '20'
+                }, {
+                    name: 'Test1',
+                    price: '20'
+                }, {
+                    name: 'Test4',
+                    price: '20'
+                }]
         }
     },
     mounted() {
-        for (const item in this.innerCatalogMenu) {
+        if (!this.initPages['categories']) {
+            this.$store.dispatch('getCategories')
+        }
+        if (!this.initPages['subcategories']) {
+            this.$store.dispatch('getSubcategories')
+        }
+        for (const item in this.subcategories) {
             this.subInnerCatalogMenuState.push(false)
         }
     },
+    computed: {
+        ...mapGetters(['pageData', 'initPages', 'totalCategories', 'searchedProducts']),
+        filteredProducts() {
+            this.$store.dispatch('search', this.search)
+        }
+    },
     methods: {
+        goTo(item) {
+            this.$router.push({
+                name: `Каталог товаров`,
+                params: {id: item._id, name: 'sda'}
+            })
+        },
         setSearched() {
             if (this.isFocused) {
                 setTimeout(() => {
                     Vue.set(this, 'isSearched', true)
+                    this.$store.dispatch('search', this.search)
                 }, 300)
             } else {
                 Vue.set(this, 'isSearched', false)
@@ -147,7 +168,7 @@ export default {
             Vue.set(this, 'catalogMenu', !this.catalogMenu)
             this.closeSubCatalogMenu()
         }
-    }
+    },
 }
 </script>
 
@@ -246,7 +267,7 @@ header .left ul {
 
 .inner-catalog-menu {
     position: absolute;
-    right: -150px;
+    right: -50px;
     top: 0;
     transform: translateX(50%);
     background: var(--white);

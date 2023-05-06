@@ -24,6 +24,11 @@
                             <input v-model="userInfo.phone" type="text" @focus="setFocus('phone')"
                                    @blur="removeFocus()">
                         </div>
+                        <div class="form-item" :class="{'is-focus': inputIsActive['email']}">
+                            <p>Электронная почта</p>
+                            <input v-model="userInfo.email" type="text" @focus="setFocus('email')"
+                                   @blur="removeFocus()">
+                        </div>
                     </div>
                     <div class="form-items">
                         <button class="button white large" @click="send()">Отправить заявку</button>
@@ -57,11 +62,13 @@ export default {
         return {
             inputIsActive: {
                 name: false,
-                phone: false
+                phone: false,
+                email: false
             },
             userInfo: {
                 name: '',
-                phone: ''
+                phone: '',
+                email: ''
             },
             applicationModal: false
         }
@@ -78,6 +85,7 @@ export default {
             }
         },
         send() {
+            this.$store.dispatch('sendMail', this.userInfo)
             Vue.set(this, 'applicationModal', true)
         },
         closeModal() {

@@ -10,60 +10,28 @@
             <div class="container">
                 <div class="items">
                     <Card
-                        :main="true"
                         :title="'Широкий ассортимент'"
                         :description="'Более 600 видов строительного материала'"
                         :button-text="'Перейти в каталог'"
-                        :button-classes="['small white']"
+                        :design="['button','white','small']"
+                        :type="'decor'"
+                        :pathName="'Товары'"
                     />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                    />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                    />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
-                    <Card
-                        :discount="true"
-                        :title="'Скидки на кирпичи'"
-                        :description="'Акция действует до конца месяца!'"
-                        :button-text="'Перейти в каталог'"
-                        :button-classes="['small red']"
-                        :image="'discont'"
-                    />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
+                    <template v-if="pageData['categories']"
+                              v-for="(category, i) in Object.values(pageData['categories']).slice(0, 19)">
+                        <Card v-if="category && !category.hidden"
+                              :type="'Category'"
+                              :total="category.total || 0"
+                              :title="category.name"
+                              :description="category.description"
+                              :image="category.image"
+                              :isHidden="category.hidden"
+                              :design="['button','white','large']"
+                              :button-text="'моделей'"
+                              :pathName="'Каталог товаров'"
+                              :pathParams="[`${category.name}`,`${category._id}`]"
+                        />
+                    </template>
                 </div>
             </div>
         </section>
@@ -78,8 +46,13 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
     name: 'IndexPage',
+    mounted() {
+        this.$store.dispatch('getCategories')
+    },
     components: {
         Slider: () => import('@/components/Slider'),
         Delivery: () => import('@/components/Delivery'),
@@ -90,6 +63,9 @@ export default {
     },
     data() {
         return {}
+    },
+    computed: {
+        ...mapGetters(['pageData'])
     }
 }
 </script>

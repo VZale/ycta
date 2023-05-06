@@ -1,68 +1,49 @@
 <template>
-    <div class="page">
+    <div class="page" v-if="Object.keys(currentProduct).length">
         <TopBar/>
         <div class="container">
             <Breadcrumbs :menuList="menuList"/>
 
             <div class="content">
-                <ProductGallery/>
+                <ProductGallery :images="currentProduct.images"/>
                 <div class="product-information">
                     <h2 class="title">
                         {{
-                            $route.params?.id?.replaceAll('-', ' ').charAt(0).toUpperCase() + $route.params?.id?.replaceAll('-', ' ').slice(1)
+                            $route.params?.name?.replaceAll('-', ' ').charAt(0).toUpperCase() + $route.params?.name?.replaceAll('-', ' ').slice(1)
                         }}</h2>
-                    <p class="price">46.00 ₽</p>
+                    <p class="price">{{
+                            currentProduct.price.toLocaleString(undefined, {maximumSignificantDigits: 2})
+                        }}₽</p>
                     <h3 class="sub-title">Напишите нам</h3>
                     <ul class="contact-us">
                         <li>
                             <img :src="require('@/assets/ycta-icons/wa-colored.png')" alt="">
-                            <a href="">WhatsApp</a>
+                            <span>WhatsApp</span>
                         </li>
                         <li>
                             <img :src="require('@/assets/ycta-icons/telegram-colored.png')" alt="">
-                            <a href="">Telegram</a>
+                            <span>Telegram</span>
                         </li>
                     </ul>
                     <ul class="product-specifications">
                         <h3 class="sub-title">Характеристики</h3>
-                        <li>
-                            <h4>Марка прочности</h4>
-                            <p>М125</p>
-                        </li>
-                        <li>
-                            <h4>Размер, мм</h4>
-                            <p>210*100*65</p>
-                        </li>
-                        <li>
-                            <h4>Морозостойкость, циклов</h4>
-                            <p>F100</p>
-                        </li>
-                        <li>
-                            <h4>Цвет</h4>
-                            <p>Красная цветовая группа</p>
-                        </li>
-                        <li>
-                            <h4>Вес, кг</h4>
-                            <p>2.3</p>
-                        </li>
-                        <li>
-                            <h4>Количество на поддоне, шт</h4>
-                            <p>560</p>
-                        </li>
+                        <template v-for="(characteristic, i) in Object.values(currentProduct.characteristics)">
+                            <!--                          {{i}}-->
+                            <li v-for="(item, i) in characteristic" :key="i">
+                                <h4>{{ i }}</h4>
+                                <p>{{ item }}</p>
+                            </li>
+                        </template>
                     </ul>
                     <div class="description">
                         <h3 class="sub-title">Описание</h3>
-                        <p>Используется для возведения облегченных наружных стен с высокой теплоизоляцией, внутренних
-                            перегородок, заполнения каркасов высотных и многоэтажных зданий. Благодаря наличию
-                            внутренних пустот обладает повышенными тепло и звукоизоляционными показателями. Меньший вес,
-                            по сравнению с полнотелым кирпичом, значительно снижает нагрузки на фундамент, позволяя
-                            сократить расходы на его возведение.</p>
+                        <p>{{ currentProduct.description }}</p>
                         <!--                        <p class="more">Развернуть</p>-->
                     </div>
                 </div>
             </div>
 
-            <RelatedProducts :related-products="{}"/>
+            <RelatedProducts v-if="currentProduct.same_products_id" :related-products="sameProducts"/>
             <Consultation/>
             <Delivery/>
         </div>
@@ -71,6 +52,8 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
     name: "SingleProduct",
     components: {
@@ -79,13 +62,26 @@ export default {
         Consultation: () => import('@/components/Consultation'),
         RelatedProducts: () => import('@/components/RelatedProducts')
     },
+    mounted() {
+        this.$store.dispatch('getCurrentProduct', this.$route.params.id)
+        this.$store.dispatch('getAllFilter')
+    },
     data() {
         return {
             menuList: [
                 {title: 'Каталог товаров', to: '/catalog'},
+                {title: this.$route.params.category_name, to: `/catalog/${this.$route.params.category_name.replaceAll('-', ' ')}`},
+                {
+                    title: this.$route.params.subcategory_name,
+                    to: `/catalog/${this.$route.params.category_name.replaceAll('-', ' ')}/${this.$route.params.subcategory_name.replaceAll('-', ' ')}`
+                },
+                {title: this.$route.params.name, to: '/'}
             ]
         }
     },
+    computed: {
+        ...mapGetters(['currentProduct', 'filters', 'sameProducts'])
+    }
 }
 </script>
 
@@ -98,11 +94,15 @@ export default {
     margin-bottom: 120px;
     display: grid;
     grid-template-columns: 560px 1fr;
-    gap: 12px;
+    gap: 32px;
     margin-top: 40px;
 }
 
 .related {
+    margin: 0;
+}
+
+.title {
     margin: 0;
 }
 

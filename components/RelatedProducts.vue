@@ -11,69 +11,23 @@
                     alt=""></button>
             </div>
         </div>
-        <VueSlickCarousel ref="carousel" :arrows="false" :dots="false">
-            <div class="slide-item">
+        <VueSlickCarousel ref="carousel" :arrows="false" :dots="false" v-if="Object.keys(relatedProducts).length">
+            <div class="slide-item" v-for="(slide, i) in relatedProducts" :key="i">
                 <div class="related-items">
-                    <Card
-                        :title="'Кирпич ручной формовки'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
-                </div>
-            </div>
-            <div class="slide-item">
-                <div class="related-items">
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
-                    <Card
-                        :title="'Облицовочный кирпич керамический'"
-                        :info-product="true"
-                        :button-text="'159 моделей'"
-                        :button-classes="['small white']"
-                        :image="'product-1'"
-                    />
+                    <template v-for="product in slide">
+                        <Card v-if="product && !product.hidden"
+                              :type="'product'"
+                              :title="product.name"
+                              :price="product.price"
+                              :description="product.description"
+                              :image="product.images ? product.images[0] : ''"
+                              :labels="product.labels"
+                              :isHidden="product.hidden"
+                              :button-text="'моделей'"
+                              :pathName="'Товар'"
+                              :pathParams="[`${Object.values(pageData['categories']).find(category => category._id === product.category_id)?.name}`,`${product.name}`,`${product._id}`]"
+                        />
+                    </template>
                 </div>
             </div>
         </VueSlickCarousel>
@@ -84,16 +38,16 @@
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import {mapGetters} from "vuex";
 
 export default {
     name: "RelatedProducts",
-    props:{
-        relatedProducts: {
-            type: Object,
-        }
-    },
+    props: ['relatedProducts'],
     components: {
         VueSlickCarousel
+    },
+    computed: {
+        ...mapGetters(['pageData'])
     },
     methods: {
         showNext() {

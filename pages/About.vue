@@ -70,7 +70,7 @@ export default {
     data() {
         return {
             menuList: [
-                {label: 'О компании', to: '/about'},
+                {title: 'О Компании'},
             ]
         }
     }

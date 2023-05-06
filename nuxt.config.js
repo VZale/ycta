@@ -66,18 +66,28 @@ export default {
                 component: resolve(__dirname, 'pages/Privacy'),
             })
             routes.push({
-                name: 'Каталог товаров',
-                path: '/catalog',
-                component: resolve(__dirname, 'pages/Product/Catalog'),
+                name: 'Поиск',
+                path: '/search/:name',
+                component: resolve(__dirname, 'pages/Searched'),
             })
             routes.push({
-                name: 'Товары',
+                name: 'Каталог товаров',
                 path: '/catalog/:name',
                 component: resolve(__dirname, 'pages/Product/ProductCatalog'),
             })
             routes.push({
+                name: 'Каталог подтоваров',
+                path: '/catalog/:category_name/:subcategory_name/:id',
+                component: resolve(__dirname, 'pages/Product/ProductCatalog'),
+            })
+            routes.push({
+                name: 'Товары',
+                path: '/catalog',
+                component: resolve(__dirname, 'pages/Product/Catalog'),
+            })
+            routes.push({
                 name: 'Товар',
-                path: '/catalog/:name/:id',
+                path: '/catalog/:category_name/:subcategory_name/:name/:id',
                 component: resolve(__dirname, 'pages/Product/SingleProduct'),
             })
         }
