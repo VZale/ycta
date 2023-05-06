@@ -70,10 +70,10 @@ export default {
         return {
             menuList: [
                 {title: 'Каталог товаров', to: '/catalog'},
-                {title: this.$route.params.category_name, to: `/catalog/${this.$route.params.category_name.replaceAll('-', ' ')}`},
+                {title: this.$route.params.category_name, to: `/catalog/${this.$route.params.category_name?.replaceAll('-', ' ')}`},
                 {
                     title: this.$route.params.subcategory_name,
-                    to: `/catalog/${this.$route.params.category_name.replaceAll('-', ' ')}/${this.$route.params.subcategory_name.replaceAll('-', ' ')}`
+                    to: `/catalog/${this.$route.params.category_name?.replaceAll('-', ' ')}/${this.$route.params.subcategory_name?.replaceAll('-', ' ')}`
                 },
                 {title: this.$route.params.name, to: '/'}
             ]
