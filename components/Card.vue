@@ -33,7 +33,7 @@
                     <span class="price">{{ price }}</span>
                     <span class="sub-title">{{ title }}</span>
                 </div>
-                <ButtonBox :design="design" :title="buttonText"/>
+                <ButtonBox :total="total" :design="design" :title="buttonText"/>
             </div>
         </template>
     </div>

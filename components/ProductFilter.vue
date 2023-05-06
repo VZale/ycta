@@ -93,7 +93,8 @@ export default {
                     Vue.set(this.productFilterState[filterName], index, false)
                 }
             }
-            this.$emit("show-result", this.productFilterChecked)
+            this.$store.dispatch('resetFilter')
+            this.$emit("clear", this.productFilterChecked)
         },
     },
 

@@ -41,7 +41,7 @@
                                     <div class="info">
                                         <img :src="require('@/assets/product-1.png')" alt="">
                                         <NuxtLink
-                                            :to="`/catalog/${product.name.replace(' ', '-').toLowerCase()}`">
+                                            :to="`/catalog/${product.name?.replace(' ', '-').toLowerCase()}`">
                                             {{ product.name }}
                                         </NuxtLink>
                                     </div>
@@ -59,7 +59,7 @@
                     </button>
                     <NuxtLink v-for="(item,i) in Object.values(pageData.categories).slice(0, 3)" :key="i"
                               class="button gray-2 button-item"
-                              :to="{ name: 'Каталог товаров', params: {name: item.name.replace(' ', '-').toLowerCase(), id: item._id }}">
+                              :to="{ name: 'Каталог товаров', params: {name: item.name?.replace(' ', '-').toLowerCase(), id: item._id }}">
                         {{ item.name }}
                     </NuxtLink>
                     <NuxtLink to="/catalog" class="button gray-2 button-item" v-if="totalCategories > 3">
@@ -76,7 +76,7 @@
                                 v-if="Object.keys(n.sub_categories).length">
                                 <li v-for="(sub, index) in n.sub_categories" :key="index">
                                     <NuxtLink
-                                        :to="{ name: 'Каталог подтоваров', params: {category_name: n.name.replace(' ', '-').toLowerCase(), subcategory_name: sub.name.replace(' ', '-').toLowerCase(), id: sub._id }}">
+                                        :to="{ name: 'Каталог подтоваров', params: {category_name: n.name?.replace(' ', '-').toLowerCase(), subcategory_name: sub.name.replace(' ', '-').toLowerCase(), id: sub._id }}">
                                         {{ sub.name }}
                                     </NuxtLink>
                                 </li>
@@ -102,23 +102,6 @@ export default {
             isFocused: false,
             isSearched: false,
             subInnerCatalogMenuState: [],
-            products: [{
-                name: 'Test',
-                price: '20'
-            },
-                {
-                    name: 'Test2',
-                    price: '20'
-                }, {
-                    name: 'Test31',
-                    price: '20'
-                }, {
-                    name: 'Test1',
-                    price: '20'
-                }, {
-                    name: 'Test4',
-                    price: '20'
-                }]
         }
     },
     mounted() {

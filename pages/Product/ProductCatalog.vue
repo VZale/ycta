@@ -7,7 +7,6 @@
                 <ProductFilter @show-result="result"/>
                 <div class="right">
                     <div class="top-content">
-                        {{Object.values(pageData['subcategories']).find(subcategory => subcategory._id === product?.sub_category_id)?.name}}
                         <h2 class="title">{{
                                 $route.params?.subcategory_name ? $route.params?.subcategory_name?.replaceAll('-', ' ').charAt(0).toUpperCase() + $route.params?.subcategory_name?.replaceAll('-', ' ').slice(1) : $route.params?.name?.replaceAll('-', ' ').charAt(0).toUpperCase() + $route.params?.name?.replaceAll('-', ' ').slice(1)
                             }}</h2>
@@ -123,19 +122,21 @@ export default {
     mounted() {
         if (this.$route.params.category_name) {
             this.$store.dispatch('getSubcategoryProducts', this.$route.params.id)
+            this.menuList.push({
+                title: this.$route.params?.category_name,
+                to: `/${this.$route.params.category_name?.replaceAll('-', ' ')}`
+            })
         } else {
             this.menuList.push({
                 title: this.$route.params?.name?.replaceAll('-', ' ')
             })
             this.$store.dispatch('getProducts')
         }
-        this.updateFilteredProducts()
     },
     data() {
         return {
             menuList: [
                 {title: 'Каталог товаров', to: '/catalog'},
-                {title: this.$route.params?.category_name, to: `/${this.$route.params.category_name?.replaceAll('-', ' ')}`},
             ],
             filteredData: [],
             filteredProducts: [],
@@ -148,34 +149,9 @@ export default {
     methods: {
         result(data) {
             Vue.set(this, 'filteredData', data)
-            this.updateFilteredProducts()
-        },
-        updateFilteredProducts() {
-            const selectedFilters = Object.values(this.filteredData).flat()
-
-            if (selectedFilters.length === 0) {
-                this.filteredProducts = Object.values(this.pageData['products']);
-            } else {
-                this.filteredProducts = Object.values(this.pageData['products']).filter((product) => {
-                    const productFilters = Object.values(product);
-                    return selectedFilters.some((filter) => productFilters.includes(filter));
-                })
-            }
         },
         filterByPrice() {
-            // Toggle the sort order
-            this.sortOrder = this.sortOrder === "asc" ? "desc" : "asc";
-
-            // Sort the products by price
-            if (this.sortOrder === "asc") {
-                this.filteredProducts = this.products.sort((a, b) => {
-                    return a.price - b.price;
-                });
-            } else {
-                this.filteredProducts = this.products.sort((a, b) => {
-                    return b.price - a.price;
-                });
-            }
+            this.$store.dispatch('filterByPrice')
         },
     },
 }

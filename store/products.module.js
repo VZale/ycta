@@ -82,7 +82,6 @@ const actions = {
             }
 
             Vue.set(state, 'sameProducts', sameProducts)
-            console.log(state.sameProducts)
         });
     },
     search(context, search) {

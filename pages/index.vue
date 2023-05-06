@@ -21,7 +21,7 @@
                               v-for="(category, i) in Object.values(pageData['categories']).slice(0, 19)">
                         <Card v-if="category && !category.hidden"
                               :type="'Category'"
-                              :total="category.total || 0"
+                              :total="category.total_product || 0"
                               :title="category.name"
                               :description="category.description"
                               :image="category.image"

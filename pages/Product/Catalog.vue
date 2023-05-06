@@ -9,7 +9,7 @@
                         <template v-for="product in pageData['categories']">
                             <Card v-if="product && !product.hidden"
                                   :type="'Category'"
-                                  :total="product.total || 0"
+                                  :total="product.total_product || 0"
                                   :title="product.name"
                                   :description="product.description"
                                   :image="product.image"

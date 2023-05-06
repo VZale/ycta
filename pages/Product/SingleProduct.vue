@@ -27,13 +27,10 @@
                     </ul>
                     <ul class="product-specifications">
                         <h3 class="sub-title">Характеристики</h3>
-                        <template v-for="(characteristic, i) in Object.values(currentProduct.characteristics)">
-                            <!--                          {{i}}-->
-                            <li v-for="(item, i) in characteristic" :key="i">
-                                <h4>{{ i }}</h4>
-                                <p>{{ item }}</p>
-                            </li>
-                        </template>
+                        <li v-for="(item, i) in currentProduct.characteristics" :key="i">
+                            <h4>{{ i }}</h4>
+                            <p>{{ item.join(',') }}</p>
+                        </li>
                     </ul>
                     <div class="description">
                         <h3 class="sub-title">Описание</h3>
@@ -70,10 +67,9 @@ export default {
         return {
             menuList: [
                 {title: 'Каталог товаров', to: '/catalog'},
-                {title: this.$route.params.category_name, to: `/catalog/${this.$route.params.category_name?.replaceAll('-', ' ')}`},
                 {
-                    title: this.$route.params.subcategory_name,
-                    to: `/catalog/${this.$route.params.category_name?.replaceAll('-', ' ')}/${this.$route.params.subcategory_name?.replaceAll('-', ' ')}`
+                    title: this.$route.params.category_name,
+                    to: `/catalog/${this.$route.params.category_name?.replaceAll('-', ' ')}`
                 },
                 {title: this.$route.params.name, to: '/'}
             ]
