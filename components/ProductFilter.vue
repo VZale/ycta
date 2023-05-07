@@ -5,7 +5,7 @@
                 Фильтры
                 <img :src="require('@/assets/ycta-icons/arrow.png')" alt="">
             </div>
-            <div class="filters">
+            <div class="filters" v-if="showFilter">
                 <div class="scroll-item" v-for="(item, i) in allFilters" :key="i">
                     <div class="head" :class="{'filter-is-open': productFilterState[i]?.state}"
                          @click="openScroller(i)">

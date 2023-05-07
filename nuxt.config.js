@@ -72,7 +72,7 @@ export default {
             })
             routes.push({
                 name: 'Каталог товаров',
-                path: '/catalog/:name',
+                path: '/catalog/:name/:id',
                 component: resolve(__dirname, 'pages/Product/ProductCatalog'),
             })
             routes.push({
@@ -101,6 +101,7 @@ export default {
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,
+    ssr: false,
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [],

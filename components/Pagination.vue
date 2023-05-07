@@ -18,13 +18,13 @@
 
 <script>
 
-import {mapGetters} from "vuex";
+import {mapGetters} from "vuex"
 
 export default {
     name: "Pagination",
     data() {
         return {
-            currentPage: 0,
+            currentPage: 1,
             limit: 18,
         }
     },

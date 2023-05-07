@@ -66,7 +66,7 @@ export const mutations = {
 
 const actions = {
     getProducts(_, data) {
-        RestService.get('/products', {
+        RestService.get(`/category/${data.id}/products`, {
             limit: 18,
             offset: data?.offset || 0
         })

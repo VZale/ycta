@@ -120,6 +120,7 @@ export default {
         ProductFilter: () => import('@/components/ProductFilter'),
     },
     mounted() {
+        console.log(this.$route.params)
         if (this.$route.params.category_name) {
             this.$store.dispatch('getSubcategoryProducts', this.$route.params.id)
             this.menuList.push({
@@ -130,8 +131,10 @@ export default {
             this.menuList.push({
                 title: this.$route.params?.name?.replaceAll('-', ' ')
             })
-            this.$store.dispatch('getProducts')
         }
+            this.$store.dispatch('getProducts', {
+                id: this.$route.params.id
+            })
     },
     data() {
         return {
@@ -240,5 +243,16 @@ export default {
     background-image: url("@/assets/ycta-icons/price-filter.png");
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.info {
+    margin-top: 30px;
+}
+
+@media (max-width: 1000px) {
+    .content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
 }
 </style>
