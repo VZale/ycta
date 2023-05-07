@@ -131,10 +131,10 @@ export default {
             this.menuList.push({
                 title: this.$route.params?.name?.replaceAll('-', ' ')
             })
-        }
             this.$store.dispatch('getProducts', {
                 id: this.$route.params.id
             })
+        }
     },
     data() {
         return {
