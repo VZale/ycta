@@ -100,7 +100,6 @@ const actions = {
     getSubcategoryProducts(_, id) {
         RestService.get(`/sub_category/${id}`)
             .then(ans => {
-                console.log('sub',ans.products)
                 this.commit('setPageData', {
                     data: ans.products,
                     page: 'products'

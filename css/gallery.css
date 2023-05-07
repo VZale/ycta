@@ -1,0 +1,18 @@
+.p-galleria-item {
+    margin-left: 30px;
+}
+
+.p-galleria-thumbnail-item img {
+    width: 80px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.p-galleria-item-wrapper,
+.p-galleria-item-container {
+    width: 100%;
+}
+
+.p-galleria-thumbnail-item {
+    background-color: var(--white);
+}

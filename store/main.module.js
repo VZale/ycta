@@ -97,8 +97,6 @@ export const mutations = {
         Vue.set(state.initPages, page, true)
     },
     setPageData(context, data) {
-
-        console.log('data',data)
         Vue.set(state.pageData, data.page, {})
 
         for (const item in data.data) {

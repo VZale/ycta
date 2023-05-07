@@ -24,7 +24,6 @@ const actions = {
                 if(Object.keys(ans).length > 3) {
                     Vue.set(state,'totalCategories', Object.keys(ans).length)
                 }
-                this.commit('initPage', 'categories')
             })
     }
 }

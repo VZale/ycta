@@ -5,7 +5,7 @@
             <Breadcrumbs :menuList="menuList"/>
 
             <div class="content">
-                <ProductGallery :images="currentProduct.images"/>
+                <ProductGallery :images="['https://picsum.photos/200/300','https://picsum.photos/20/32','https://picsum.photos/20/32','https://picsum.photos/20/32','https://picsum.photos/20/34']"/>
                 <div class="product-information">
                     <h2 class="title">
                         {{
@@ -34,7 +34,7 @@
                     </ul>
                     <div class="description">
                         <h3 class="sub-title">Описание</h3>
-                        <p>{{ currentProduct.description }}</p>
+                        <div v-html="currentProduct.description"></div>
                         <!--                        <p class="more">Развернуть</p>-->
                     </div>
                 </div>
@@ -50,6 +50,7 @@
 
 <script>
 import {mapGetters} from "vuex";
+import('@/css/page.css')
 
 export default {
     name: "SingleProduct",
