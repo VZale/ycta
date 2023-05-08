@@ -171,4 +171,16 @@ export default {
     color: var(--red-1);
     margin-top: 8px;
 }
+
+
+@media (max-width: 1000px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .delivery {
+        margin-top: 24px;
+    }
+}
+
 </style>

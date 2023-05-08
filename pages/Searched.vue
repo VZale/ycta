@@ -7,7 +7,7 @@
                 <div class="top-content">
                     <p class="search-desc">
                         {{
-                            Object.keys(searchedProducts).length ? ` По запросу ${$route.params.name} найдено (262)` : `По запросу «${$route.params.name}» ничего не найдено`
+                            Object.keys(searchedProducts).length ? ` По запросу ${$route.params.name} найдено (${Object.keys(searchedProducts).length})` : `По запросу «${$route.params.name}» ничего не найдено`
                         }}</p>
                     <div class="more-detailed" v-if="!Object.keys(searchedProducts).length">
                         <p class="sub-desc">Попробуйте сформулировать запрос по-другому или вернитесь в каталог
@@ -33,7 +33,7 @@
                         />
                     </template>
                 </div>
-                <Pagination v-if="Object.keys(searchedProducts).length"/>
+                <Pagination v-if="Object.keys(searchedProducts).length > 18"/>
             </div>
         </div>
         <Footer/>
@@ -106,5 +106,6 @@ export default {
     display: grid;
     gap: 12px;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    margin-bottom: 30px;
 }
 </style>

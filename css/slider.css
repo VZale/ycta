@@ -75,3 +75,22 @@
 .slide-button:hover img {
     filter: invert(2) sepia(5) saturate(5) hue-rotate(35deg);
 }
+
+@media (max-width: 768px) {
+    .main-section {
+        height: auto !important;
+    }
+
+    main .slide-item {
+        padding: 20px;
+        height: 500px;
+    }
+
+    main .slide-item img {
+        object-fit: cover;
+    }
+
+    .slide-title {
+        font-size: 21px;
+    }
+}

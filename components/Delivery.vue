@@ -38,6 +38,7 @@ export default {
 <style scoped>
 .delivery {
     padding: 80px 0 120px;
+    z-index: -1;
 }
 
 .delivery .container {

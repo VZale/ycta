@@ -1,14 +1,14 @@
-h1 {
+.info h1 {
     margin-bottom: 24px;
     font-size: 40px;
     font-weight: 500;
 }
 
-ul {
+.info ul {
     margin: 20px 0;
 }
 
-li {
+.info li {
     margin-bottom: 8px;
     list-style: disc;
     list-style-position: inside;

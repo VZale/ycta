@@ -3,33 +3,35 @@
         <div class="top">
             <div class="container">
                 <img class="logo" :src="require('@/assets/ycta-logo-white.png')" alt="Logo">
-                <div class="item">
-                    <p>Позвоните нам</p>
-                    <NuxtLink to="/">
-                        <img :src="require('@/assets/ycta-icons/phone.png')" alt="">
-                        8 (918) 040 02-00
-                    </NuxtLink>
-                </div>
-                <div class="item">
-                    <p>Или напишите</p>
-                    <a href="#">
-                        <img :src="require('@/assets/ycta-icons/email.png')" alt="">
-                        sd-usta@mail.ru
-                    </a>
-                </div>
-                <div class="item">
-                    <span></span>
-                    <a href="#">
-                        <img :src="require('@/assets/ycta-icons/wa.png')" alt="">
-                        WhatsApp
-                    </a>
-                </div>
-                <div class="item">
-                    <span></span>
-                    <a href="#">
-                        <img :src="require('@/assets/ycta-icons/telegram.png')" alt="">
-                        Telegram
-                    </a>
+                <div class="end">
+                    <div class="item">
+                        <p>Позвоните нам</p>
+                        <NuxtLink to="/">
+                            <img :src="require('@/assets/ycta-icons/phone.png')" alt="">
+                            8 (918) 040 02-00
+                        </NuxtLink>
+                    </div>
+                    <div class="item">
+                        <p>Или напишите</p>
+                        <a href="#">
+                            <img :src="require('@/assets/ycta-icons/email.png')" alt="">
+                            sd-usta@mail.ru
+                        </a>
+                    </div>
+                    <div class="item">
+                        <span></span>
+                        <a href="#">
+                            <img :src="require('@/assets/ycta-icons/wa.png')" alt="">
+                            WhatsApp
+                        </a>
+                    </div>
+                    <div class="item">
+                        <span></span>
+                        <a href="#">
+                            <img :src="require('@/assets/ycta-icons/telegram.png')" alt="">
+                            Telegram
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,37 +41,13 @@
                     <p class="sub-menu">Каталог</p>
                     <ul class="menu-list">
                         <div class="left">
-                            <li>
-                                <NuxtLink to="/">Облицовочный кирпич керамический</NuxtLink>
-                            </li>
-                            <li>
-                                <NuxtLink to="/">Забутовочный кирпич (рядовой )</NuxtLink>
-                            </li>
-                            <li>
-                                <NuxtLink to="/">Керамические поризованные блоки</NuxtLink>
-                            </li>
-                            <li>
-                                <NuxtLink to="/">Тротуарная плитка</NuxtLink>
-                            </li>
-                            <li>
-                                <NuxtLink to="/">Кирпич ручной формовки</NuxtLink>
+                            <li v-for="link in Object.values(pageData['categories']).slice(0, 5)">
+                                <NuxtLink to="/">{{ link.name }}</NuxtLink>
                             </li>
                         </div>
                         <div class="right">
-                            <li>
-                                <NuxtLink to="/">Клинкерный кирпич облицовочный</NuxtLink>
-                            </li>
-                            <li>
-                                <NuxtLink to="/">Цветные кладочные смеси (растворы)</NuxtLink>
-                            </li>
-                            <li>
-                                <NuxtLink to="/">Кирпич огнеупорный (шамотный)</NuxtLink>
-                            </li>
-                            <li>
-                                <NuxtLink to="/">Печной кирпич</NuxtLink>
-                            </li>
-                            <li>
-                                <NuxtLink to="/">Гиперпрессованный кирпич лицевой</NuxtLink>
+                            <li v-for="link in Object.values(pageData['categories']).slice(5, 10)">
+                                <NuxtLink to="/">{{ link.name }}</NuxtLink>
                             </li>
                         </div>
                     </ul>
@@ -120,8 +98,13 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
-    name: "Footer"
+    name: "Footer",
+    computed: {
+        ...mapGetters(['pageData'])
+    }
 }
 </script>
 
@@ -139,6 +122,9 @@ footer .top {
 
 footer .top .container {
     display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
 }
 
 footer .top::after {
@@ -152,13 +138,15 @@ footer .top::after {
     background-color: #52555E;
 }
 
-.top .logo {
-    margin-right: 220px;
+.top .end {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-.top .item {
+.top .end .item {
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: max-content 1fr;
     color: #828691;
     margin-right: 54px;
     gap: 12px;
@@ -185,8 +173,9 @@ footer .top::after {
 }
 
 .footer-menu {
-    display: grid;
-    grid-template-columns: repeat(2, max-content) 1fr;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 30px;
     padding: 42px 0 120px;
 }
@@ -228,12 +217,19 @@ footer .top::after {
 
 footer .bottom {
     color: #828691;
-    display: grid;
-    grid-template-columns: repeat(2, max-content) 1fr;
-    gap: 65px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
 }
 
 footer .bottom p:last-child {
     text-align: right;
+}
+
+@media (max-width: 1000px) {
+    .footer-menu {
+        padding: 42px 0 60px;
+    }
 }
 </style>

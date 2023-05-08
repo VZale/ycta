@@ -179,6 +179,10 @@ export default {
     top: 17px;
 }
 
+.form-items .form-item:last-child {
+    grid-area: 2/span 2;
+}
+
 input {
     height: 100%;
     width: 100%;
@@ -224,17 +228,45 @@ button {
     cursor: pointer;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 769px) {
     .consultation {
         max-width: 100%;
         padding: 0;
         margin: 40px auto 0;
     }
 
+    .consultation.is-modal {
+        width: 100%;
+        bottom: 0;
+        top: auto;
+        transform: translate(-50%, 0);
+        border-radius: 12px 12px 0 0;
+    }
+
+    .item.form .form-items {
+        grid-template-columns: 1fr;
+    }
+
+    .consultation .item .top {
+        display: inline-block;
+    }
+
+    .consultation .top img {
+        display: none;
+    }
+
+    .close {
+        left: 10px;
+        top: 10px;
+    }
+
+    .form-items .form-item {
+        grid-area: auto !important;
+    }
+
     .consultation .box {
         grid-template-columns: 1fr;
         padding: 28px;
-        border-radius: 0;
     }
 
     .consultation .item .top {
@@ -255,24 +287,6 @@ button {
 
     .form-item.is-focus input {
         font-size: 12px;
-    }
-}
-
-@media (max-width: 768px) {
-    .item.form .form-items {
-        grid-template-columns: 1fr;
-    }
-
-    .item.form .form-items:last-child {
-        margin-bottom: 0;
-    }
-
-    .top h2 {
-        max-width: 320px;
-    }
-
-    .top img {
-        display: none;
     }
 }
 </style>

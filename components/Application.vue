@@ -37,4 +37,14 @@ p {
 button {
     width: 100%;
 }
+
+@media (max-width: 570px) {
+    .content {
+        width: 100%;
+        bottom: 0;
+        top: auto;
+        transform: translate(-50%, 0);
+        border-radius: 12px 12px 0 0;
+    }
+}
 </style>

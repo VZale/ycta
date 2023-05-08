@@ -1,10 +1,10 @@
 <template>
-    <header>
+    <header :class="{mobile: isMobile}">
         <div class="container">
-            <NuxtLink to="/" class="logo">
+            <NuxtLink to="/" class="logo" v-if="!isMobile || !isFocused">
                 <img :src="require('@/assets/ycta-logo.png')" alt="">
             </NuxtLink>
-            <div class="menu">
+            <div class="menu" v-if="!isMobile">
                 <div class="top">
                     <div class="left">
                         <ul>
@@ -37,9 +37,12 @@
                                    @keyup.enter="$router.push({name: 'Поиск', params: {name: search}})"
                             >
                             <div class="search-content" v-show="isSearched && isFocused">
-                                <div class="item" v-for="(product, i) in searchedProducts" :key="i">
+                                <div class="item" v-for="(product, i) in Object.values(searchedProducts).slice(0, 5)"
+                                     :key="i">
                                     <div class="info">
-                                        <img :src="require('@/assets/product-1.png')" alt="">
+                                        <img
+                                            :src="product.images[0] ? `https://api.enternaloptimist.com/file/download/${product.images[0]}` : require('@/assets/no-image.png')"
+                                            alt="">
                                         <NuxtLink
                                             :to="`/catalog/${product.name?.replace(' ', '-').toLowerCase()}`">
                                             {{ product.name }}
@@ -47,6 +50,9 @@
                                     </div>
                                     <p>{{ product.price }} ₽</p>
                                 </div>
+                                <NuxtLink v-if="Object.values(searchedProducts).length > 5" :to="`/search/${search}`"
+                                          class="more">Все результаты
+                                </NuxtLink>
                             </div>
                         </div>
                     </div>
@@ -69,9 +75,9 @@
                 <div class="catalog-menu" :class="{'is-active': catalogMenu}">
                     <ul>
                         <li v-for="(n, index) in pageData['categories']" :key="index">
-                            <span class="link" @click="openSubCatalogMenu(index)">
-                                {{ n.name }}
-                            </span>
+                                                    <span class="link" @click="openSubCatalogMenu(index)">
+                                                        {{ n.name }}
+                                                    </span>
                             <ul class="inner-catalog-menu" v-show="subInnerCatalogMenuState[index]"
                                 v-if="Object.keys(n.sub_categories).length">
                                 <li v-for="(sub, index) in n.sub_categories" :key="index">
@@ -81,6 +87,81 @@
                                     </NuxtLink>
                                 </li>
                             </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mob-menu" v-if="isMobile">
+                <div class="search" :class="{'is-focus': isFocused}">
+                    <span class="material-icons">search</span>
+                    <input v-model="search" type="text" @keypress="setSearched()" placeholder="Поиск"
+                           @focus="isFocused = true"
+                           @keyup.enter="$router.push({name: 'Поиск', params: {name: search}})"
+                    >
+                    <div class="search-content" v-show="isSearched && isFocused">
+                        <div class="item" v-for="(product, i) in Object.values(searchedProducts).slice(0, 5)"
+                             :key="i">
+                            <div class="info">
+                                <img
+                                    :src="product.images[0] ? `https://api.enternaloptimist.com/file/download/${product.images[0]}` : require('@/assets/no-image.png')"
+                                    alt="">
+                                <NuxtLink
+                                    :to="`/catalog/${product.name?.replace(' ', '-').toLowerCase()}`">
+                                    {{ product.name }}
+                                </NuxtLink>
+                            </div>
+                            <p>{{ product.price }} ₽</p>
+                        </div>
+                        <NuxtLink v-if="Object.values(searchedProducts).length > 5" :to="`/search/${search}`"
+                                  class="more">Все результаты
+                        </NuxtLink>
+                    </div>
+                </div>
+                <button class="button black button-item more-menu" @click="menu = !menu" v-if="isMobile && !isFocused">
+                    <span class="material-icons">{{ menu ? 'close' : 'menu' }}</span>
+                    Меню
+                </button>
+                <div class="menu" v-if="menu">
+                    <div class="buttons">
+                       <span class="link" @click="openCatalogMenu()" :class="{'is-open': catalogMenu}">
+                             Каталог
+                        <img :src="require('@/assets/arrow.png')" alt="">
+                        </span>
+                        <template v-if="catalogMenu">
+                            <div class="inner-mob-menu" :class="{'is-active': catalogMenu}">
+                                <ul>
+                                    <li v-for="(n, index) in pageData['categories']" :key="index">
+                                        <span class="link" @click="openSubCatalogMenu(index)"
+                                              :class="{'is-open': subInnerCatalogMenuState[index]}">
+                                            {{ n.name }}
+                                            <img :src="require('@/assets/arrow.png')" alt="">
+                                        </span>
+                                        <ul class="inner-catalog-mob-menu" v-show="subInnerCatalogMenuState[index]"
+                                            v-if="Object.keys(n.sub_categories).length">
+                                            <li v-for="(sub, index) in n.sub_categories" :key="index">
+                                                <NuxtLink
+                                                    :to="{ name: 'Каталог подтоваров', params: {category_name: n.name?.replace(' ', '-').toLowerCase(), subcategory_name: sub.name.replace(' ', '-').toLowerCase(), id: sub._id }}">
+                                                    {{ sub.name }}
+                                                </NuxtLink>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </template>
+                    </div>
+                    <ul class="other-menu">
+                        <li>
+                            <NuxtLink to="/about">О Компании</NuxtLink>
+                        </li>
+                        <li>
+                            <NuxtLink to="/guarantee">Доставка</NuxtLink>
+                        </li>
+                        <li>
+                            <NuxtLink to="/payment">Оплата</NuxtLink>
+                        </li>
+                        <li>
+                            <NuxtLink to="/contacts">Контакты</NuxtLink>
                         </li>
                     </ul>
                 </div>
@@ -101,7 +182,9 @@ export default {
             catalogMenu: false,
             isFocused: false,
             isSearched: false,
+            menu: false,
             subInnerCatalogMenuState: [],
+            isMobile: false
         }
     },
     mounted() {
@@ -114,6 +197,8 @@ export default {
         for (const item in this.subcategories) {
             this.subInnerCatalogMenuState.push(false)
         }
+
+        this.$set(this, 'isMobile', (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)))
     },
     computed: {
         ...mapGetters(['pageData', 'initPages', 'totalCategories', 'searchedProducts']),
@@ -163,7 +248,7 @@ header {
     background-color: var(--gray-1);
     top: 0;
     width: 100%;
-    z-index: 20;
+    z-index: 4;
 }
 
 .logo {
@@ -224,7 +309,7 @@ header .left ul {
 
 .catalog-menu {
     position: absolute;
-    top: 100px;
+    top: 115px;
     left: 0;
     padding: 24px;
     background: var(--white);
@@ -250,9 +335,9 @@ header .left ul {
 
 .inner-catalog-menu {
     position: absolute;
-    right: -50px;
+    left: 100%;
+    width: 100%;
     top: 0;
-    transform: translateX(50%);
     background: var(--white);
     box-shadow: 0 4px 20px rgba(55, 57, 64, 0.2);
     border-radius: 0 12px 12px 0;
@@ -303,16 +388,21 @@ header .left ul {
 }
 
 .search-content .item {
-    display: grid;
-    grid-template-columns: repeat(2, max-content);
+    display: flex;
+    justify-content: space-between;
     gap: 40px;
     place-items: center;
 }
 
 .search-content .info {
-    display: grid;
-    grid-template-columns: 50px 450px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
     gap: 16px;
+}
+
+.search-content img {
+    width: 50px;
 }
 
 .search.is-focus {
@@ -341,5 +431,115 @@ select {
     font-size: 18px;
     outline: none;
     color: var(--black);
+}
+
+.more {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 130%;
+    color: var(--red-1);
+    margin-top: 24px;
+    display: inline-block;
+}
+
+header.mobile {
+    height: 74px;
+}
+
+header.mobile .container {
+    grid-template-columns: 2fr 1fr;
+}
+
+header.mobile .logo {
+    width: 70px;
+    height: auto;
+}
+
+.mob-menu .search {
+    position: relative;
+}
+
+.mob-menu .buttons {
+    margin-top: 24px;
+}
+
+
+.mob-menu .search.is-focus {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    z-index: 10;
+}
+
+.mob-menu {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    /*position: relative;*/
+    justify-content: flex-end;
+}
+
+.mob-menu .menu {
+    position: absolute;
+    top: 74px;
+    left: 0;
+    background-color: var(--white);
+    height: 100vh;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.mob-menu {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    font-family: 'Inter';
+}
+
+.other-menu {
+    margin-top: 12px;
+}
+
+.mob-menu li {
+    margin-bottom: 16px;
+}
+
+.mob-menu li:last-child {
+    margin-bottom: 0;
+}
+
+.inner-catalog-mob-menu {
+    padding-left: 12px;
+    margin-top: 16px;
+    color: var(--gray-4);
+}
+
+.mob-menu .buttons {
+    flex-direction: column;
+}
+
+.mob-menu .buttons .link,
+.mob-menu li .link {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.mob-menu .buttons .link img,
+.mob-menu li img {
+    object-fit: contain;
+    transition: all .3s ease-in-out;
+}
+
+.mob-menu .buttons .link.is-open img,
+.mob-menu li .link.is-open img {
+    transform: rotate(180deg);
+}
+
+@media (max-width: 1200px) {
+    .right .email,
+    .right .phone {
+        display: none;
+    }
 }
 </style>
