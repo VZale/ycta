@@ -91,7 +91,7 @@
             <div class="bottom">
                 <p>© Строительный Двор «УСТА», 2023</p>
                 <NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink>
-                <p>Сделано в ...</p>
+                <p>Сделано в <a href="https://enternaloptimist.com/">enternaloptimist.com</a></p>
             </div>
         </div>
     </footer>
