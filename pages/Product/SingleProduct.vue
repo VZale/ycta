@@ -5,7 +5,7 @@
             <Breadcrumbs :menuList="menuList"/>
 
             <div class="content">
-                <ProductGallery :images="['https://picsum.photos/200/300','https://picsum.photos/20/32','https://picsum.photos/20/32','https://picsum.photos/20/32','https://picsum.photos/20/34']"/>
+                <ProductGallery :images="currentProduct.images"/>
                 <div class="product-information">
                     <h2 class="title">
                         {{
