@@ -1,6 +1,5 @@
 <template>
     <section class="consultation" :class="{'is-modal': isModal, successfully: applicationModal}">
-
         <div class="container">
             <div class="box">
                 <div class="close" v-if="isModal" @click="$emit('close-modal')">
@@ -8,25 +7,33 @@
                 </div>
                 <div class="item">
                     <div class="top">
-                        <h2>Давайте начнем с консультации</h2>
+                        <h2>{{ title }}</h2>
                         <img :src="require('@/assets/ycta-icons/call.png')" alt="">
                     </div>
-                    <p>Поможем с подбором материала, посчитаем стоимость с доставкой, расскажем об акциях и скидках</p>
+                    <p v-if="!nickname">Поможем с подбором материала, посчитаем стоимость с доставкой, расскажем об
+                        акциях и скидках</p>
                 </div>
                 <div class="item form">
                     <div class="form-items">
-                        <div class="form-item" :class="{'is-focus': inputIsActive['name']}">
+                        <div class="form-item" :class="{'is-focus': inputIsActive['full_name']}">
                             <p>Ваше имя</p>
-                            <input v-model="userInfo.name" type="text" @focus="setFocus('name')" @blur="removeFocus()">
+                            <input v-model="userInfo.full_name" type="text" @focus="setFocus('full_name')"
+                                   @blur="removeFocus()">
                         </div>
                         <div class="form-item" :class="{'is-focus': inputIsActive['phone']}">
                             <p>Номер телефона</p>
                             <input v-model="userInfo.phone" type="text" @focus="setFocus('phone')"
                                    @blur="removeFocus()">
                         </div>
-                        <div class="form-item" :class="{'is-focus': inputIsActive['email']}">
+                        <div class="form-item email" :class="{'is-focus': inputIsActive['email']}">
                             <p>Электронная почта</p>
                             <input v-model="userInfo.email" type="text" @focus="setFocus('email')"
+                                   @blur="removeFocus()">
+                        </div>
+                        <div v-if="nickname" class="form-item nickname"
+                             :class="{'is-focus': inputIsActive['nickname']}">
+                            <p>Nickname</p>
+                            <input v-model="userInfo.nickname" type="text" @focus="setFocus('nickname')"
                                    @blur="removeFocus()">
                         </div>
                     </div>
@@ -48,7 +55,7 @@
 </template>
 
 <script>
-import Vue from "vue";
+import {mapGetters} from "vuex"
 
 export default {
     name: "Consultation",
@@ -56,26 +63,51 @@ export default {
         isModal: {
             type: Boolean,
             default: false,
+        },
+        nickname: {
+            type: Boolean,
+            default: false,
+        },
+        title: {
+            type: String,
+            default: 'Давайте начнем с консультации'
+        },
+        productId: {
+            type: String,
+            default: ''
+        },
+        social: {
+            type: String,
+            default: ''
         }
     },
     data() {
         return {
             inputIsActive: {
-                name: false,
+                full_name: false,
                 phone: false,
-                email: false
+                email: false,
+                nickname: false,
             },
             userInfo: {
-                name: '',
+                full_name: '',
                 phone: '',
-                email: ''
+                email: '',
+                nickname: '',
             },
-            applicationModal: false
         }
+    },
+    computed: {
+        ...mapGetters(['applicationModal'])
     },
     methods: {
         setFocus(item) {
             this.$set(this.inputIsActive, item, true)
+        },
+        clearData() {
+            for (const n in this.userInfo) {
+                this.userInfo[n] = ''
+            }
         },
         removeFocus() {
             for (const item in this.inputIsActive) {
@@ -85,11 +117,35 @@ export default {
             }
         },
         send() {
-            this.$store.dispatch('sendMail', this.userInfo)
-            Vue.set(this, 'applicationModal', true)
+            if (!this.nickname) {
+                this.$delete(this.userInfo, 'nickname')
+            }
+
+            if (this.social) {
+                this.userInfo['social'] = this.social
+            }
+
+            if (this.productId) {
+                this.userInfo['product_id'] = this.productId
+            }
+
+            const formData = Object.entries(this.userInfo).reduce((acc, [key, value]) => {
+                if (value) {
+                    acc[key] = value
+                }
+                return acc
+            }, {})
+
+            if (Object.keys(formData).length > 2 && !this.nickname && !this.social) {
+                this.$store.dispatch('sendMail', formData)
+            } else if (this.nickname || this.social) {
+                this.$store.dispatch('sendChoseProduct', formData)
+            }
+            this.clearData()
         },
         closeModal() {
-            Vue.set(this, 'applicationModal', false)
+            this.$store.commit('setApplicationModal', false)
+            this.clearData()
             this.$emit('close-modal')
         }
     }
@@ -179,7 +235,11 @@ export default {
     top: 17px;
 }
 
-.form-items .form-item:last-child {
+.form-items .form-item.nickname {
+    grid-area: 3/span 2;
+}
+
+.form-items .form-item.email {
     grid-area: 2/span 2;
 }
 

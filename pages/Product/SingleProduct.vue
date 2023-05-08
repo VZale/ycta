@@ -12,15 +12,15 @@
                             $route.params?.name?.replaceAll('-', ' ').charAt(0).toUpperCase() + $route.params?.name?.replaceAll('-', ' ').slice(1)
                         }}</h2>
                     <p class="price">{{
-                            currentProduct.price.toLocaleString(undefined, {maximumSignificantDigits: 2})
+                            currentProduct.price?.toLocaleString(undefined, {maximumSignificantDigits: 2})
                         }}₽</p>
                     <h3 class="sub-title">Напишите нам</h3>
                     <ul class="contact-us">
-                        <li>
+                        <li @click="sendMail('whatsapp')">
                             <img :src="require('@/assets/ycta-icons/wa-colored.png')" alt="">
                             <span>WhatsApp</span>
                         </li>
-                        <li>
+                        <li @click="sendMail('telegram')">
                             <img :src="require('@/assets/ycta-icons/telegram-colored.png')" alt="">
                             <span>Telegram</span>
                         </li>
@@ -34,13 +34,22 @@
                     </ul>
                     <div class="description">
                         <h3 class="sub-title">Описание</h3>
-                        <div v-html="currentProduct.description"></div>
-                        <!--                        <p class="more">Развернуть</p>-->
+                        <div v-if="showFullDescription" v-html="currentProduct.description"></div>
+                        <div v-else v-html="shortDescription"></div>
+                        <p class="more"
+                           v-if="!showFullDescription && shortDescription.length > 99 && currentProduct.description"
+                           @click="showFullDescription = true">Развернуть</p>
+                        <p v-if="showFullDescription"  @click="showFullDescription = false" class="more">Свернуть</p>
                     </div>
                 </div>
             </div>
-
             <RelatedProducts v-if="currentProduct.same_products_id" :related-products="sameProducts"/>
+            <ModalBox v-if="chooseProduct">
+                <template #modalContent>
+                    <Consultation :social="social" :productId="currentProduct._id" :title="'Отправить заявку'"
+                                  :nickname="nickname" @close-modal="chooseProduct=false" :is-modal="true"/>
+                </template>
+            </ModalBox>
             <Consultation/>
             <Delivery/>
         </div>
@@ -49,7 +58,8 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapGetters} from "vuex"
+
 import('@/css/page.css')
 
 export default {
@@ -73,12 +83,45 @@ export default {
                     to: `/catalog/${this.$route.params.category_name?.replaceAll('-', ' ')}`
                 },
                 {title: this.$route.params.name, to: '/'}
-            ]
+            ],
+            chooseProduct: false,
+            showFullDescription: false,
+            shortDescription: '',
+            social: '',
+            nickname: true
         }
     },
     computed: {
         ...mapGetters(['currentProduct', 'filters', 'sameProducts'])
-    }
+    },
+    methods: {
+        updateShortDescription() {
+            if (!this.currentProduct || !this.currentProduct.description) {
+                this.shortDescription = ''
+                return
+            }
+
+            const fullDescription = this.currentProduct.description
+            this.shortDescription = fullDescription.slice(0, 100) + '...'
+        },
+        sendMail(social) {
+            this.nickname = true
+            this.chooseProduct = true
+            this.social = social
+
+            if (social === 'whatsapp') {
+                this.nickname = false
+            }
+        }
+    },
+    watch: {
+        currentProduct: {
+            handler() {
+                this.updateShortDescription()
+            },
+            immediate: true
+        }
+    },
 }
 </script>
 
@@ -170,8 +213,13 @@ export default {
 .more {
     color: var(--red-1);
     margin-top: 8px;
+    cursor: pointer;
+    font-weight: 500;
 }
 
+.contact-us li {
+    cursor: pointer;
+}
 
 @media (max-width: 1000px) {
     .content {

@@ -1,4 +1,5 @@
 import Vue from "vue"
+import RestService from "@/common/rest.service"
 
 export const state = {
     fields: {
@@ -77,7 +78,8 @@ export const state = {
         categories: false,
         subcategories: false,
         products: false,
-    }
+    },
+    applicationModal: false,
 }
 
 export const getters = {
@@ -89,6 +91,9 @@ export const getters = {
     },
     initPages() {
         return state.initPages
+    },
+    applicationModal() {
+        return state.applicationModal
     }
 }
 
@@ -98,30 +103,39 @@ export const mutations = {
     },
     setPageData(context, data) {
         Vue.set(state.pageData, data.page, {})
-
         for (const item in data.data) {
             if (!state.pageData[data.page][data.data[item]._id]) {
                 Vue.set(state.pageData[data.page], data.data[item]._id, {})
             }
             Vue.set(state.pageData[data.page], data.data[item]._id, data.data[item])
         }
-
-        // this.dispatch('sendCategory', data.data)
-
-        // Vue.set(state.pageData['categories'],'products', [])
-        // state.pageData['categories'].products.push(data.data)
-        //
-        // Vue.set(state.pageData['categories'][data.data.id], 'total', ++state.pageData['categories'][data.data.id].total || 1)
     },
     removePageData(_, data) {
         Vue.delete(state.pageData[data.page], data._id)
     },
     hidePageData(_, data) {
         Vue.set(state.pageData[data.page][data.data._id], 'hidden', data.data.hidden)
+    },
+    setApplicationModal(_, data) {
+        Vue.set(state, 'applicationModal', data)
     }
 }
 
-const actions = {}
+const actions = {
+    sendMail(_, data) {
+        RestService.post('/mail/feedback', data)
+            .then(() => {
+                this.commit('setApplicationModal', true)
+            })
+    },
+    sendChoseProduct(_, data) {
+        RestService.post('/mail/feedback/product', data)
+            .then((ans) => {
+                window.open(ans.url, '_blank')
+                this.commit('setApplicationModal', true)
+            })
+    }
+}
 
 export default {
     state,
