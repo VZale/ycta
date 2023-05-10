@@ -41,7 +41,7 @@
                                      :key="i">
                                     <div class="info">
                                         <img
-                                            :src="product.images[0] ? `https://api.enternaloptimist.com/file/download/${product.images[0]}` : require('@/assets/no-image.png')"
+                                            :src="product.images[0] ? `https://api.kirpichkrasnodar.ru/file/download/${product.images[0]}` : require('@/assets/no-image.png')"
                                             alt="">
                                         <NuxtLink
                                             :to="`/catalog/${product.name?.replace(' ', '-').toLowerCase()}`">
@@ -103,7 +103,7 @@
                              :key="i">
                             <div class="info">
                                 <img
-                                    :src="product.images[0] ? `https://api.enternaloptimist.com/file/download/${product.images[0]}` : require('@/assets/no-image.png')"
+                                    :src="product.images[0] ? `https://api.kirpichkrasnodar.ru/file/download/${product.images[0]}` : require('@/assets/no-image.png')"
                                     alt="">
                                 <NuxtLink
                                     :to="`/catalog/${product.name?.replace(' ', '-').toLowerCase()}`">

@@ -1,7 +1,7 @@
 <template>
     <div class="gallery">
         <img v-if="!images.length" :src="require('@/assets/no-image.png')" alt="">
-        <img  v-else-if="images.length === 1" :src="'https://api.enternaloptimist.com/file/download/' + images[0]"
+        <img  v-else-if="images.length === 1" :src="'https://api.kirpichkrasnodar.ru/file/download/' + images[0]"
              alt="">
         <Galleria
             v-else
@@ -14,7 +14,7 @@
             <template #item="slotProps">
                 <img
                     @error="require('@/assets/no-image.png')"
-                    :src="'https://api.enternaloptimist.com/file/download/' + slotProps.item"
+                    :src="'https://api.kirpichkrasnodar.ru/file/download/' + slotProps.item"
                     :alt="slotProps.item.alt"
                     class="galleria-item-image"
                 />
@@ -22,7 +22,7 @@
             <template #thumbnail="slotProps">
                 <div class="galleria-thumbnail-container">
                     <img
-                        :src="'https://api.enternaloptimist.com/file/download/' + slotProps.item"
+                        :src="'https://api.kirpichkrasnodar.ru/file/download/' + slotProps.item"
                         :alt="slotProps.item.alt"
                         class="galleria-thumbnail-image"
                     />
