@@ -9,7 +9,7 @@
                         материалы в удобное для вас время. Доставка возможна манипулятором или длинномерным
                         транспортом</p>
                 </div>
-                <nuxt-link to="/" class="button black small">Подробнее о доставке</nuxt-link>
+                <NuxtLink to="/guarantee" class="button black small">Подробнее о доставке</NuxtLink>
                 <img :src="require('@/assets/ycta-icons/rocket.png')" alt="">
             </div>
             <div class="item">
@@ -22,7 +22,7 @@
                         <li>По безналичному расчету с НДС</li>
                     </ul>
                 </div>
-                <nuxt-link to="/" class="button gray small">Подробнее об оплате</nuxt-link>
+                <NuxtLink to="/payment" class="button gray small">Подробнее об оплате</NuxtLink>
                 <img :src="require('@/assets/ycta-icons/card.png')" alt="">
             </div>
         </div>
@@ -38,7 +38,6 @@ export default {
 <style scoped>
 .delivery {
     padding: 80px 0 120px;
-    z-index: -1;
 }
 
 .delivery .container {
