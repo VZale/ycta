@@ -26,12 +26,16 @@
                 <img :src="require('@/assets/ycta-icons/card.png')" alt="">
             </div>
         </div>
+        <SocialBar/>
     </section>
 </template>
 
 <script>
 export default {
-    name: "Delivery"
+    name: "Delivery",
+    components: {
+        SocialBar: () => import('@/components/SocialBar')
+    }
 }
 </script>
 

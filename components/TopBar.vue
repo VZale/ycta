@@ -58,37 +58,41 @@
                     </div>
                 </div>
 
-                <div class="buttons">
-                    <button class="button black button-item more-menu" @click="openCatalogMenu()">
-                        <span class="material-icons">{{ catalogMenu ? 'close' : 'menu' }}</span>
-                        Каталог
-                    </button>
-                    <NuxtLink v-for="(item,i) in Object.values(pageData.categories).slice(0, 3)" :key="i"
-                              class="button gray-2 button-item"
-                              :to="{ name: 'Каталог товаров', params: {name: item.name?.replace(' ', '-').toLowerCase(), id: item._id }}">
-                        {{ item.name }}
-                    </NuxtLink>
-                    <NuxtLink to="/catalog" class="button gray-2 button-item" v-if="totalCategories > 3">
-                        Еще +{{ totalCategories - 3 }}
-                    </NuxtLink>
-                </div>
-                <div class="catalog-menu" :class="{'is-active': catalogMenu}">
-                    <ul>
-                        <li v-for="(n, index) in pageData['categories']" :key="index">
-                                                    <span class="link" @click="openSubCatalogMenu(index)">
-                                                        {{ n.name }}
-                                                    </span>
-                            <ul class="inner-catalog-menu" v-show="subInnerCatalogMenuState[index]"
-                                v-if="Object.keys(n.sub_categories).length">
-                                <li v-for="(sub, index) in n.sub_categories" :key="index">
-                                    <NuxtLink
-                                        :to="{ name: 'Каталог подтоваров', params: {category_name: n.name?.replace(' ', '-').toLowerCase(), subcategory_name: sub.name.replace(' ', '-').toLowerCase(), id: sub._id }}">
-                                        {{ sub.name }}
-                                    </NuxtLink>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                <div class="menu-box">
+                    <div class="buttons" >
+                        <button class="button black button-item more-menu" @click="$router.push({name: 'Товары'})" @mouseover="openCatalogMenu()">
+                            <span class="material-icons">{{ catalogMenu ? 'close' : 'menu' }}</span>
+                            Каталог
+                        </button>
+                        <NuxtLink v-for="(item,i) in Object.values(pageData.categories).slice(0, 3)" :key="i"
+                                  class="button gray-2 button-item"
+                                  :to="{ name: 'Каталог товаров', params: {name: item.name?.replace(' ', '-').toLowerCase(), id: item._id }}">
+                            {{ item.name }}
+                        </NuxtLink>
+                        <NuxtLink to="/catalog" class="button gray-2 button-item" v-if="totalCategories > 3">
+                            Еще +{{ totalCategories - 3 }}
+                        </NuxtLink>
+                    </div>
+                    <div class="catalog-menu" :class="{'is-active': catalogMenu}" @mouseleave="catalogMenu = false" @mouseleave.stop>
+                        <ul>
+                            <li v-for="(n, index) in pageData['categories']" :key="index">
+                                                        <span class="link" @click="$router.push({name: 'Каталог товаров', params: {name: n.name?.replace(' ', '-').toLowerCase(), id: n._id }})"
+                                                              @mouseover="openSubCatalogMenu(index)">
+                                                            {{ n.name }}
+                                                        </span>
+                                <ul class="inner-catalog-menu" v-show="subInnerCatalogMenuState[index]"
+                                    @mouseleave="closeSubCatalogMenu(index)"
+                                    v-if="Object.keys(n.sub_categories).length">
+                                    <li v-for="(sub, index) in n.sub_categories" :key="index">
+                                        <NuxtLink
+                                            :to="{ name: 'Каталог подтоваров', params: {category_name: n.name?.replace(' ', '-').toLowerCase(), subcategory_name: sub.name.replace(' ', '-').toLowerCase(), id: sub._id }}">
+                                            {{ sub.name }}
+                                        </NuxtLink>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="mob-menu" v-if="isMobile">
@@ -123,7 +127,7 @@
                 </button>
                 <div class="menu" v-if="menu">
                     <div class="buttons">
-                       <span class="link" @click="openCatalogMenu()" :class="{'is-open': catalogMenu}">
+                       <span class="link" @mouseleave="openCatalogMenu()" :class="{'is-open': catalogMenu}">
                              Каталог
                         <img :src="require('@/assets/arrow.png')" alt="">
                         </span>

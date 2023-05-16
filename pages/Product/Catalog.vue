@@ -24,6 +24,7 @@
                 </template>
             </div>
         <Footer/>
+        <SocialBar/>
     </section>
 </template>
 
@@ -33,7 +34,9 @@ import Card from "../../components/Card";
 
 export default {
     name: "Catalog",
-    components: {Card},
+    components: {Card,
+        SocialBar: () => import('@/components/SocialBar')
+    },
     data() {
         return {
             menuList: [

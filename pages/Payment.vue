@@ -35,6 +35,7 @@
             </div>
 
             <Consultation/>
+            <SocialBar/>
         </div>
         <Footer/>
     </div>
@@ -48,6 +49,7 @@ export default {
         Footer: () => import("@/components/Footer.vue"),
         Breadcrumbs: () => import("@/components/Breadcrumbs.vue"),
         Consultation: () => import("@/components/Consultation.vue"),
+        SocialBar: () => import('@/components/SocialBar')
     },
     data() {
         return {

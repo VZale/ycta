@@ -54,6 +54,7 @@
             <Delivery/>
         </div>
         <Footer/>
+        <SocialBar/>
     </div>
 </template>
 
@@ -68,7 +69,8 @@ export default {
         ProductGallery: () => import('@/components/ProductGallery'),
         Delivery: () => import('@/components/Delivery'),
         Consultation: () => import('@/components/Consultation'),
-        RelatedProducts: () => import('@/components/RelatedProducts')
+        RelatedProducts: () => import('@/components/RelatedProducts'),
+        SocialBar: () => import('@/components/SocialBar')
     },
     mounted() {
         this.$store.dispatch('getCurrentProduct', this.$route.params.id)

@@ -101,6 +101,7 @@
                     персональных данных, предпринимаемые ФИО (далее — Оператор).</p>
             </div>
         </div>
+        <SocialBar/>
         <Footer/>
     </div>
 </template>
@@ -112,6 +113,7 @@ export default {
         TopBar: () => import('@/components/TopBar.vue'),
         Footer: () => import("@/components/Footer.vue"),
         Breadcrumbs: () => import("@/components/Breadcrumbs.vue"),
+        SocialBar: () => import('@/components/SocialBar')
     },
     data() {
         return {

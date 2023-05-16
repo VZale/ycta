@@ -22,6 +22,7 @@
             </template>
         </div>
         <Footer/>
+        <SocialBar/>
     </section>
 </template>
 
@@ -34,6 +35,8 @@ export default {
         Card: () => import('@/components/Card'),
         Breadcrumbs: () => import('@/components/Breadcrumbs'),
         TopBar: () => import('@/components/TopBar'),
+        SocialBar: () => import('@/components/SocialBar')
+
     },
     props: ['category_id'],
     data() {

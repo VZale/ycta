@@ -37,6 +37,7 @@
             </div>
         </div>
         <Footer/>
+        <SocialBar/>
     </div>
 </template>
 
@@ -52,6 +53,7 @@ export default {
         RelatedProducts: () => import('@/components/RelatedProducts'),
         Card: () => import('@/components/Card'),
         ProductFilter: () => import('@/components/ProductFilter'),
+        SocialBar: () => import('@/components/SocialBar')
     },
     mounted() {
         this.$store.dispatch('search', this.$route.params.name)

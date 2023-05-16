@@ -61,11 +61,15 @@
         <Consultation/>
         <Delivery/>
         <Footer/>
+        <SocialBar/>
     </section>
 </template>
 
 <script>
 export default {
+    components: {
+        SocialBar: () => import('@/components/SocialBar')
+    },
     name: "About",
     data() {
         return {

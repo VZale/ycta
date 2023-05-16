@@ -35,6 +35,7 @@
             </div>
         </div>
         <Footer/>
+        <SocialBar/>
     </div>
 
 </template>
@@ -51,6 +52,7 @@ export default {
         Pagination: () => import('@/components/Pagination'),
         RelatedProducts: () => import('@/components/RelatedProducts'),
         Card: () => import('@/components/Card'),
+        SocialBar: () => import('@/components/SocialBar'),
         ProductFilter: () => import('@/components/ProductFilter'),
     },
     mounted() {

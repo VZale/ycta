@@ -46,26 +46,9 @@
                     </div>
                 </div>
                 <div class="map">
-                    <GmapMap
-                        :center="{ lat: 45.036035, lng: 38.97457060000001 }"
-                        :zoom="15"
-                        map-type-id="terrain"
-                        style="width: 100%; height: 100%"
-                    >
-                        <GmapMarker
-                            :position="{ lat: 45.036035, lng: 38.97457060000001 }"
-                            :clickable="true"
-                            :draggable="false"
-                            :icon="{
-                                url: '/ycta-logo-white.png',
-                                scaledSize: { width: 64, height: 64 },
-                                origin: { x: 0, y: 0 },
-                                anchor: { x: 32, y: 32 },
-                                'object-fit': 'cover'
-                              }"
-                            title="Some address"
-                        />
-                    </GmapMap>
+                    <yandex-map :coords="[55.76, 37.64]">
+                        <!--Markers-->
+                    </yandex-map>
                 </div>
             </div>
 
@@ -76,12 +59,16 @@
                           ]"
             />
             <Consultation/>
+
         </div>
+        <SocialBar/>
         <Footer/>
     </div>
 </template>
 
 <script>
+import {yandexMap} from 'vue-yandex-maps'
+
 export default {
     name: "Contacts",
     components: {
@@ -90,12 +77,17 @@ export default {
         Breadcrumbs: () => import("@/components/Breadcrumbs.vue"),
         Consultation: () => import("@/components/Consultation.vue"),
         ProductAbout: () => import('@/components/ProductAbout'),
+        SocialBar: () => import('@/components/SocialBar'),
+        yandexMap
     },
     data() {
         return {
             menuList: [
                 {title: 'Контакты'},
-            ]
+            ],
+            settings: {
+                coords: [55.76, 37.64],
+            }
         }
     }
 }

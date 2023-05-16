@@ -42,6 +42,7 @@
         <Consultation/>
         <Delivery/>
         <Footer/>
+        <SocialBar/>
     </div>
 </template>
 
@@ -59,7 +60,8 @@ export default {
         Consultation: () => import('@/components/Consultation'),
         Collaboration: () => import('@/components/Collaboration'),
         ProductAbout: () => import('@/components/ProductAbout'),
-        Card: () => import('@/components/Card')
+        Card: () => import('@/components/Card'),
+        SocialBar: () => import('@/components/SocialBar')
     },
     data() {
         return {}
