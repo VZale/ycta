@@ -14,7 +14,7 @@ export const getters = {
 export const mutations = {
     setAllFilters(context, data) {
         for (const n in data) {
-            let name = data[n].name
+            let name = data[n].slug
             if (!state.filters[name]) {
                 Vue.set(state.filters, name, {})
             }

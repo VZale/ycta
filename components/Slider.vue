@@ -1,23 +1,11 @@
 <template>
     <div class="slider" :class="forSection">
-        <VueSlickCarousel ref="carousel" :arrows="false" :dots="true">
-            <div class="slide-item">
-                <img class="slide-image" :src="require('@/assets/ycta-main-slider/slide-1.png')" alt="slide-1">
+        <VueSlickCarousel ref="carousel" :arrows="false" :dots="true" v-if="Object.keys(mainSlider).length">
+            <div class="slide-item" v-for="(slide, i) in mainSlider" :key="i">
+                <img class="slide-image" :src="slide.image ? `https://api.kirpichkrasnodar.ru/file/download/${slide.image}` : require('@/assets/ycta-main-slider/slide-1.png')" alt="slide-1">
                 <div class="slide-content">
-                    <h2 class="slide-title">Поставляем стройматериалы по Югу России</h2>
-                    <p class="slide-description">Газобетонный блок, облицовочный кирпич, кровельные материалы,
-                        тротуарную
-                        плитку. Со своего склада, либо со складов производителей</p>
-                </div>
-                <button class="button" :class="slideButtonStyle" @click="consultationModal = true">Начать с консультации</button>
-            </div>
-            <div class="slide-item">
-                <img class="slide-image" :src="require('@/assets/ycta-main-slider/slide-1.png')" alt="slide-1">
-                <div class="slide-content">
-                    <h2 class="slide-title">Поставляем стройматериалы по Югу России</h2>
-                    <p class="slide-description">Газобетонный блок, облицовочный кирпич, кровельные материалы,
-                        тротуарную
-                        плитку. Со своего склада, либо со складов производителей</p>
+                    <h2 class="slide-title">{{ slide.title }}</h2>
+                    <p class="slide-description">{{slide.description}}</p>
                 </div>
                 <button class="button" :class="slideButtonStyle" @click="consultationModal = true">Начать с консультации</button>
             </div>
@@ -45,6 +33,7 @@
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import {mapGetters} from "vuex";
 
 export default {
     props: {
@@ -71,6 +60,9 @@ export default {
         return {
             consultationModal: false
         }
+    },
+    computed: {
+        ...mapGetters(['mainSlider'])
     },
     methods: {
         showNext() {

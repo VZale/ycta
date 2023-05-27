@@ -80,6 +80,7 @@ export const state = {
         products: false,
     },
     applicationModal: false,
+    mainSlider: {}
 }
 
 export const getters = {
@@ -94,6 +95,9 @@ export const getters = {
     },
     applicationModal() {
         return state.applicationModal
+    },
+    mainSlider() {
+        return state.mainSlider
     }
 }
 
@@ -118,7 +122,12 @@ export const mutations = {
     },
     setApplicationModal(_, data) {
         Vue.set(state, 'applicationModal', data)
-    }
+    },
+    setMainSlider(_, data) {
+        for (const item in data) {
+            Vue.set(state.mainSlider, item, data[item])
+        }
+    },
 }
 
 const actions = {
@@ -133,6 +142,12 @@ const actions = {
             .then((ans) => {
                 window.open(ans.url, '_blank')
                 this.commit('setApplicationModal', true)
+            })
+    },
+    getMainSlider() {
+        RestService.get('/sliders/main')
+            .then((ans) => {
+                this.commit('setMainSlider', ans)
             })
     }
 }

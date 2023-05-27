@@ -53,6 +53,7 @@ export default {
     name: 'IndexPage',
     mounted() {
         this.$store.dispatch('getCategories')
+        this.$store.dispatch('getMainSlider')
     },
     components: {
         Slider: () => import('@/components/Slider'),

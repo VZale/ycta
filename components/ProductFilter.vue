@@ -14,7 +14,7 @@
                     </div>
                     <div class="scroll-content" v-show="productFilterState[i]?.state">
 
-                        <div class="item" :class="{'is-checked': productFilterState[i]?.[n]}" @click="setCheckbox(i,j)"
+                        <div class="item" :class="{'is-checked': productFilterState[i]?.[n.toLowerCase()]}" @click="setCheckbox(i,j)"
                              v-for="(n,j) in item.options" :key="j">
                             {{ n }}
                         </div>
@@ -53,7 +53,7 @@ export default {
                 Vue.set(this.productFilterChecked, item, [])
                 Vue.set(this.productFilterState[item], 'state', false)
                 for (const n in this.filters[item].options) {
-                    Vue.set(this.productFilterState[item], this.filters[item].options[n], false)
+                    Vue.set(this.productFilterState[item], this.filters[item].options[n].toLowerCase(), false)
                 }
             }
 
@@ -65,12 +65,11 @@ export default {
             Vue.set(this.productFilterState[item], "state", !this.productFilterState[item].state)
         },
         setCheckbox(filterName, index) {
-            const checkedItems = this.productFilterChecked[filterName]
-            const value = this.filters[filterName].options[index]
+            const checkedItems = this.productFilterChecked[filterName.toLowerCase()]
+            const value = this.filters[filterName.toLowerCase()].options[index].toLowerCase()
 
             Vue.set(this.productFilterState[filterName], value, !this.productFilterState[filterName][value])
-
-            if (this.productFilterState[filterName][value]) {
+            if (this.productFilterState[filterName.toLowerCase()][value]) {
                 checkedItems.push(value)
             } else {
                 const itemIndex = checkedItems.indexOf(value)
