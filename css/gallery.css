@@ -56,7 +56,7 @@
 }
 
 .p-galleria .p-galleria-thumbnail-container .p-galleria-thumbnail-prev, .p-galleria .p-galleria-thumbnail-container .p-galleria-thumbnail-next {
-    color: var(--black);
+    color: var(--black) !important;
 }
 
 .p-galleria-item {
