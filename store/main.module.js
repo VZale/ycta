@@ -80,7 +80,8 @@ export const state = {
         products: false,
     },
     applicationModal: false,
-    mainSlider: {}
+    mainSlider: {},
+    aboutSlider: {}
 }
 
 export const getters = {
@@ -98,6 +99,9 @@ export const getters = {
     },
     mainSlider() {
         return state.mainSlider
+    },
+    aboutSlider() {
+        return state.aboutSlider
     }
 }
 
@@ -126,6 +130,9 @@ export const mutations = {
     setMainSlider(_, data) {
         Vue.set(state, 'mainSlider', data)
     },
+    setAboutSlider(_, data) {
+        Vue.set(state, 'aboutSlider', data)
+    },
 }
 
 const actions = {
@@ -146,6 +153,12 @@ const actions = {
         RestService.get('/sliders/main')
             .then((ans) => {
                 this.commit('setMainSlider', ans)
+            })
+    },
+    getAboutSlider() {
+        RestService.get('/sliders/about')
+            .then((ans) => {
+                this.commit('setAboutSlider', ans)
             })
     }
 }

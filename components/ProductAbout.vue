@@ -22,22 +22,20 @@
                 <button class="slide-button slide-right" @click="showPrev"><img
                     :src="require('@/assets/ycta-icons/arrow-left.svg')"
                     alt=""></button>
-                <VueSlickCarousel ref="carousel" :arrows="false" :dots="true">
-                    <div class="slide-item">
-                        <img :src="require('@/assets/product-about-1.png')" alt="">
-                        <img :src="require('@/assets/product-about-2.png')" alt="">
-                    </div>
-                    <div class="slide-item">
-                        <img :src="require('@/assets/product-about-1.png')" alt="">
-                        <img :src="require('@/assets/product-about-2.png')" alt="">
+                <VueSlickCarousel ref="carousel" :arrows="false" :dots="true" v-if="Object.keys(aboutSlider).length">
+                    <div v-for="(slide, i) in aboutSlider[0]?.images" :key="i" v-if="i % 2 === 0">
+                        <div class="slide-item" v-if="i % 2 === 0">
+                            <img :src="'https://api.kirpichkrasnodar.ru/file/download/'+ slide" alt="">
+                            <img v-if="aboutSlider[0]?.images[i + 1]"
+                                 :src="'https://api.kirpichkrasnodar.ru/file/download/'+ aboutSlider[0]?.images[i + 1]"
+                                 alt="">
+                        </div>
                     </div>
                     <template #customPaging="page" class="custom-dots">
-
-                        <div class="custom-dot">
-
-                        </div>
+                        <div class="custom-dot"></div>
                     </template>
                 </VueSlickCarousel>
+
                 <button class="slide-button slide-left" @click="showNext"><img
                     :src="require('@/assets/ycta-icons/arrow-right.svg')"
                     alt=""></button>
@@ -50,9 +48,15 @@
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import {mapGetters} from "vuex";
 
 export default {
     name: "productAbout",
+    mounted() {
+        if (!Object.keys(this.aboutSlider).length) {
+            this.$store.dispatch('getAboutSlider')
+        }
+    },
     props: {
         title: {
             type: String,
@@ -86,6 +90,9 @@ export default {
             this.$refs.carousel.prev()
         }
     },
+    computed: {
+        ...mapGetters(['aboutSlider'])
+    }
 }
 </script>
 
@@ -201,6 +208,10 @@ export default {
 
 .product-about .more-description p:last-child {
     margin: 0;
+}
+
+.slide-item img {
+    z-index: -1;
 }
 
 @media (max-width: 1000px) {

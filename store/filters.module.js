@@ -2,12 +2,16 @@ import Vue from "vue"
 import RestService from "../common/rest.service"
 
 export const state = {
-    filters: {}
+    filters: {},
+    filtersList: {}
 }
 
 export const getters = {
     filters() {
         return state.filters
+    },
+    filtersList() {
+        return state.filtersList
     }
 }
 
@@ -22,6 +26,9 @@ export const mutations = {
             Vue.set(state.filters, name, data[n])
         }
     },
+    setFiltersList(context, data) {
+        Vue.set(state, 'filtersList', data)
+    },
 }
 
 const actions = {
@@ -29,6 +36,12 @@ const actions = {
         RestService.get('/filters')
             .then((ans) => {
                 this.commit('setAllFilters', ans)
+            })
+    },
+    getFilterList() {
+        RestService.get('/filters/list')
+            .then((ans) => {
+                this.commit('setFiltersList', ans)
             })
     },
     applyFilter(_, data) {

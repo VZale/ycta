@@ -27,8 +27,8 @@
                     </ul>
                     <ul class="product-specifications">
                         <h3 class="sub-title">Характеристики</h3>
-                        <li v-for="(item, i) in currentProduct.characteristics" :key="i">
-                            <h4>{{ i }}</h4>
+                        <li v-for="(item, i,n) in currentProduct.characteristics" :key="i">
+                            {{filtersList[n]?.name}}
                             <p>{{ item.join(',') }}</p>
                         </li>
                     </ul>
@@ -75,6 +75,9 @@ export default {
     mounted() {
         this.$store.dispatch('getCurrentProduct', this.$route.params.id)
         this.$store.dispatch('getAllFilter')
+        if (!Object.keys(this.filtersList).length){
+            this.$store.dispatch('getFilterList')
+        }
     },
     data() {
         return {
@@ -94,7 +97,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['currentProduct', 'filters', 'sameProducts'])
+        ...mapGetters(['currentProduct', 'filters', 'sameProducts','filtersList'])
     },
     methods: {
         updateShortDescription() {
