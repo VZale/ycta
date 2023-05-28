@@ -165,4 +165,20 @@ export default {
 .item-box:last-child {
     margin: 0;
 }
+
+.consultation {
+    margin-bottom: 50px;
+}
+
+@media (max-width: 1000px) {
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 489px) {
+    .static-info {
+        grid-template-columns: 1fr;
+    }
+}
 </style>

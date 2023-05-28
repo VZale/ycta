@@ -170,4 +170,14 @@ export default {
         gap: 30px;
     }
 }
+
+@media (max-width: 768px) {
+    .title {
+        margin: 0 0 10px;
+    }
+
+    .top-content {
+        grid-template-columns: 1fr;
+    }
+}
 </style>

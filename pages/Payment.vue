@@ -73,13 +73,13 @@ export default {
 
 .items {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 12px;
     margin-bottom: 40px;
 }
 
 .items .item {
-    height: 220px;
+    height: 250px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -97,5 +97,9 @@ export default {
 
 .item p {
     font-size: 16px;
+}
+
+.consultation {
+    margin-bottom: 50px;
 }
 </style>

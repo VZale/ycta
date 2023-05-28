@@ -288,7 +288,7 @@ button {
     cursor: pointer;
 }
 
-@media (max-width: 769px) {
+@media (max-width: 1000px) {
     .consultation {
         max-width: 100%;
         padding: 0;

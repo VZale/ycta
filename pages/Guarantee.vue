@@ -91,4 +91,8 @@ ul li:last-child {
     margin: 0;
 }
 
+.consultation {
+    margin-bottom: 50px;
+}
+
 </style>

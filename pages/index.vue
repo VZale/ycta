@@ -90,8 +90,8 @@ main {
 }
 
 @media (max-width: 768px) {
-    .catalog .items {
-        padding-top: 50px;
+    .catalog {
+        padding-bottom: 50px;
     }
 }
 </style>

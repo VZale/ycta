@@ -124,9 +124,7 @@ export const mutations = {
         Vue.set(state, 'applicationModal', data)
     },
     setMainSlider(_, data) {
-        for (const item in data) {
-            Vue.set(state.mainSlider, item, data[item])
-        }
+        Vue.set(state, 'mainSlider', data)
     },
 }
 

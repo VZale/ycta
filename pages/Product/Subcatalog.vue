@@ -79,4 +79,10 @@ img {
 .button {
     margin-top: 20px;
 }
+
+@media (max-width: 768px) {
+    .catalog-items {
+        place-content: center;
+    }
+}
 </style>

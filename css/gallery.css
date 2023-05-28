@@ -39,3 +39,26 @@
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
     color: var(--black);
 }
+
+.p-galleria .p-galleria-thumbnail-container {
+    background-color: transparent;
+}
+
+#pv_id_1 .p-galleria-thumbnail-item {
+    border-radius: 12px !important;
+    flex: 0 0 25% !important;
+    margin-bottom: 12px;
+}
+
+
+.p-galleria-thumbnail-item-current {
+    border: 2px solid var(--black);
+}
+
+.p-galleria .p-galleria-thumbnail-container .p-galleria-thumbnail-prev, .p-galleria .p-galleria-thumbnail-container .p-galleria-thumbnail-next {
+    color: var(--black);
+}
+
+.p-galleria-item {
+    cursor: pointer;
+}

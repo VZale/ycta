@@ -172,7 +172,7 @@ h2, h3, h4 {
 }
 
 .page-box {
-    padding: 80px 230px;
+    padding: 80px;
     background: var(--white);
     border-radius: 12px;
     margin-top: 40px;
@@ -214,8 +214,30 @@ ul li a {
     }
 }
 
+@media (max-width: 1000px) {
+    .title {
+        font-size: 32px;
+    }
+}
+
 @media (max-width: 768px) {
-    main{
+    .page {
+        padding-top: 55px;
+    }
+
+    main {
         padding-top: 75px !important;
+    }
+
+    .title {
+        font-size: 21px;
+    }
+
+    .page-box {
+        padding: 25px;
+    }
+
+    h3 {
+        font-size: 21px !important;
     }
 }
