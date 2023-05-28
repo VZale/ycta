@@ -41,10 +41,10 @@
 }
 
 .p-galleria .p-galleria-thumbnail-container {
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
-#pv_id_1 .p-galleria-thumbnail-item {
+.p-galleria-thumbnail-item {
     border-radius: 12px !important;
     flex: 0 0 25% !important;
     margin-bottom: 12px;
@@ -61,4 +61,9 @@
 
 .p-galleria-item {
     cursor: pointer;
+}
+
+
+.p-galleria-thumbnail-item  {
+    flex: 0 0 25% !important;
 }
