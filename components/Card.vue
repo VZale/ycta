@@ -13,7 +13,7 @@
                 :src="image !== 'no-image' ? 'https://api.kirpichkrasnodar.ru/file/download/'+ image : require(`@/assets/no-image.png`)"
                 :alt="image">
             <div class="product-info" v-if="type === 'product'">
-                <span class="price">{{ price }}</span>
+                <span class="price">{{ price }} руб/шт</span>
                 <span class="sub-title">{{ title }}</span>
             </div>
             <ButtonBox v-if="type === 'Category' && type !== 'product'" :total="total" :design="design"
