@@ -124,14 +124,16 @@ export default {
                 return
             }
 
+
             if (this.type === 'product') {
                 this.$router.push({
                     name: `${this.pathName}`,
                     params: {
                         category_name: this.pathParams[0].replace(' ', '-').toLowerCase() || '',
                         subcategory_name: this.pathParams[1].replace(' ', '-').toLowerCase() || '',
-                        name: this.pathParams[2].replace(' ', '-').toLowerCase() || '',
-                        id: this.pathParams[3] || ''
+                        subcategory_id: this.pathParams[2] || '',
+                        name: this.pathParams[3].replace(' ', '-').toLowerCase() || '',
+                        id: this.pathParams[4] || ''
                     }
                 })
                 return

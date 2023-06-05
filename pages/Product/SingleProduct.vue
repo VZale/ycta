@@ -85,7 +85,7 @@ export default {
                 {title: 'Каталог товаров', to: '/catalog'},
                 {
                     title: this.$route.params.category_name,
-                    to: `/catalog/${this.$route.params.category_name?.replaceAll('-', ' ')}`
+                    to: `/catalog/${this.$route.params.category_name?.replaceAll('-', ' ')}/${this.$route.params.subcategory_id}`
                 },
                 {title: this.$route.params.name, to: '/'}
             ],

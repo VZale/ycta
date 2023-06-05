@@ -87,7 +87,7 @@ export default {
             })
             routes.push({
                 name: 'Товар',
-                path: '/catalog/:category_name/:subcategory_name/:name/:id',
+                path: '/catalog/:category_name/:subcategory_name/:subcategory_id/:name/:id',
                 component: resolve(__dirname, 'pages/Product/SingleProduct'),
             })
         }

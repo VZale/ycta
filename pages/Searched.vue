@@ -17,6 +17,7 @@
                         </NuxtLink>
                     </div>
                 </div>
+
                 <div class="product-list">
                     <template v-for="product in searchedProducts">
                         <Card v-if="product && !product.hidden"
@@ -29,7 +30,7 @@
                               :isHidden="product.hidden"
                               :button-text="'моделей'"
                               :pathName="'Товар'"
-                              :pathParams="[`${Object.values(pageData['categories']).find(category => category._id === product.category_id)?.name}`,`${product.name}`,`${product._id}`]"
+                              :pathParams="[`${Object.values(pageData['categories']).find(category => category._id === product.category_id)?.name}`,`${Object.values(pageData['subcategories']).find(subcategory => subcategory._id === product?.sub_category_id)?.name}`,`${Object.values(pageData['categories']).find(category => category._id === product.category_id)?._id}`,`${product.name}`,`${product._id}`]"
                         />
                     </template>
                 </div>
