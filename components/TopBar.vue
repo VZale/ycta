@@ -25,10 +25,11 @@
                     <div class="right">
                         <a class="phone" href="#">8 (918) 040 02-00</a>
                         <a class="email" href="#">sd-usta@mail.ru</a>
-                        <!--                        <select>-->
-                        <!--                            <option>Краснодарский край</option>-->
-                        <!--                            <option>Краснодарский край</option>-->
-                        <!--                        </select>-->
+                        <select>
+                            <option>Краснодарский край</option>
+                            <option>Ставропольский край</option>
+                            <option>Ростовкая область</option>
+                        </select>
                         <div class="search" :class="{'is-focus': isFocused}">
                             <span class="material-icons">search</span>
                             <input v-model="search" type="text" @keypress="setSearched()" placeholder="Поиск"

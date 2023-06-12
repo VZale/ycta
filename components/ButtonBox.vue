@@ -52,7 +52,7 @@ button {
 
 
 .button.large {
-    padding: 14px 24px;
+    padding: 8px 24px;
 }
 
 .button.small {

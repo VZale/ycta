@@ -9,7 +9,7 @@
                         материалы в удобное для вас время. Доставка возможна манипулятором или длинномерным
                         транспортом</p>
                 </div>
-                <NuxtLink to="/guarantee" class="button black small">Подробнее о доставке</NuxtLink>
+                <NuxtLink to="/guarantee" class="button gray small">Подробнее о доставке</NuxtLink>
                 <img :src="require('@/assets/ycta-icons/rocket.png')" alt="">
             </div>
             <div class="item">
@@ -93,10 +93,21 @@ export default {
     right: 20px;
 }
 
+
+.delivery p {
+    margin-bottom: 40px;
+}
+
 .delivery a {
     font-size: 18px;
     font-weight: 500;
     width: max-content;
+    transition: all .3s ease-in-out;
+}
+
+.delivery a:hover {
+    background-color: var(--black);
+    color: var(--white);
 }
 
 @media (max-width: 1000px) {
@@ -106,9 +117,8 @@ export default {
     .delivery .container {
         grid-template-columns: 1fr;
     }
-    .button.black {
-        background-color: var(--gray-2);
-        color: var(--black);
+    .delivery p {
+        margin-bottom: 20px;
     }
 }
 @media (max-width: 768px) {
