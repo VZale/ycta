@@ -1,8 +1,8 @@
 <template>
     <div class="social-bar">
         <div class="social-content">
-            <a v-tooltip="'Напишите нам в Telegram!'" :href="`https://t.me/${telegram}.`"><img :src="require('@/assets/ycta-icons/telegram-colored.png')" alt=""></a>
-            <a v-tooltip="'Напишите нам в WhatsApp!'" :href="`https://wa.me/${whatsapp}.`"><img :src="require('@/assets/ycta-icons/wa-colored.png')" alt=""></a>
+            <a v-tooltip="'Напишите нам в Telegram!'" :href="`https://t.me/+${telegram}`"><img :src="require('@/assets/ycta-icons/telegram-colored.png')" alt=""></a>
+            <a v-tooltip="'Напишите нам в WhatsApp!'" :href="`https://api.whatsapp.com/send?phone=${whatsapp}`"><img :src="require('@/assets/ycta-icons/wa-colored.png')" alt=""></a>
         </div>
     </div>
 </template>
