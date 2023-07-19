@@ -67,7 +67,6 @@ export default {
         setCheckbox(filterName, index) {
             const checkedItems = this.productFilterChecked[filterName.toLowerCase()]
             const value = this.filters[filterName.toLowerCase()].options[index].toLowerCase()
-
             Vue.set(this.productFilterState[filterName], value, !this.productFilterState[filterName][value])
             if (this.productFilterState[filterName.toLowerCase()][value]) {
                 checkedItems.push(value)

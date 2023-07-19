@@ -12,7 +12,6 @@
                             }}</h2>
                         <p class="price-filter" @click="filterByPrice()"> По цене</p>
                     </div>
-                    asd
                     <div class="product-list">
                         <template v-for="product in pageData['products']">
                             <Card v-if="product && !product.hidden"
