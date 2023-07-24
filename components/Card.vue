@@ -212,11 +212,6 @@ export default {
     border-radius: 12px;
 }
 
-.card img {
-    height: 150px;
-    object-fit: contain;
-}
-
 .markers {
     display: flex;
     align-items: center;
@@ -342,6 +337,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 20px;
 }
 
 .product-info .price {
