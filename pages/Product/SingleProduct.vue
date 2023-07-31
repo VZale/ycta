@@ -28,7 +28,8 @@
                     <ul class="product-specifications">
                         <h3 class="sub-title">Характеристики</h3>
                         <li v-for="(item, i,n) in currentProduct.characteristics" :key="i">
-                            {{filtersList[n]}}
+                            {{filters[i]?.name}}
+<!--                            {{filtersList}}-->
                             <p>{{ item.join(',') }}</p>
                         </li>
                     </ul>
