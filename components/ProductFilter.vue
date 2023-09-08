@@ -177,7 +177,7 @@ export default {
     content: '';
     position: absolute;
     left: 10px;
-    top: 13px;
+    top: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
     visibility: hidden;

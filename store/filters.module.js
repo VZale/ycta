@@ -48,7 +48,7 @@ const actions = {
         const filteredData = {}
         for (const [key, value] of Object.entries(data.filter)) {
             if (Array.isArray(value) && value.length) {
-                filteredData[key] = value.map(element => element.replace(/\s/g, ''))
+                filteredData[key] = value
             }
         }
 
