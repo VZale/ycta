@@ -48,7 +48,6 @@ const actions = {
         const filteredData = {}
         for (const [key, value] of Object.entries(data.filter)) {
             if (Array.isArray(value) && value.length) {
-                console.log('val', value)
                 filteredData[key] = value.map(element => element.replace(/\s/g, ''))
             }
         }
@@ -56,8 +55,6 @@ const actions = {
         if (!Object.keys(filteredData).length) {
             return
         }
-
-        console.log('data', data)
 
         RestService.post('/filters/search/products', filteredData)
             .then(ans => {
