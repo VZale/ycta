@@ -24,11 +24,11 @@
                                   :isHidden="product.hidden"
                                   :button-text="'моделей'"
                                   :pathName="'Товар'"
-                                  :pathParams="[`${Object.values(pageData['categories']).find(category => category._id === product.category_id)?.name}`,`${Object.values(pageData['subcategories']).find(subcategory => subcategory._id === product?.sub_category_id)?.name}`,`${Object.values(pageData['categories']).find(category => category._id === product.category_id)?._id}`,`${product.name}`,`${product._id}`]"
+                                  :pathParams="`../${$route.params.name}/${Object.values(pageData['subcategories']).find(subcategory => subcategory._id === product?.sub_category_id)?.name.replace(' ', '-').toLowerCase()}/${Object.values(pageData['categories']).find(category => category._id === product.category_id)?._id}/${product.name.toLowerCase().replace(' ', '-')}/${product._id}`"
                             />
                         </template>
                     </div>
-                    <Pagination/>
+                    <Pagination v-if="Object.keys(pageData['products']).length > 18"/>
                     <div class="info"
                          v-html="$route.params.subcategory_name ? pageData['subcategories'][$route.params.id]?.description :  pageData['categories'][$route.params.id]?.description"></div>
                 </div>

@@ -210,10 +210,6 @@ export default {
     margin: 0;
 }
 
-.slide-item img {
-    z-index: -1;
-}
-
 @media (max-width: 1000px) {
     .product-about .top {
         grid-template-columns: 1fr;

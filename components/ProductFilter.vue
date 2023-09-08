@@ -81,7 +81,10 @@ export default {
 
         },
         showResult() {
-            this.$store.dispatch('applyFilter', this.productFilterChecked)
+            this.$store.dispatch('applyFilter', {
+                filter: this.productFilterChecked,
+                name: this.$route.params.name
+            })
             this.$emit("show-result", this.productFilterChecked)
         },
         clearFilter() {

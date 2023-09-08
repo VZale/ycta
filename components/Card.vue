@@ -1,5 +1,5 @@
 <template>
-    <div class="card" :style="{ backgroundColor: type === 'decor' ? 'var(--red-1)' : '' }" @click="goTo()">
+    <NuxtLink :to="pathParams || ''" class="card" :style="{ backgroundColor: type === 'decor' ? 'var(--red-1)' : '' }">
         <template v-if="type !== 'decor'">
             <h2 class="card-title" v-if="type === 'Category'">{{ title }}</h2>
             <div class="more-info" v-if="labels">
@@ -36,7 +36,7 @@
                 <ButtonBox :total="total" :design="design" :title="buttonText"/>
             </div>
         </template>
-    </div>
+    </NuxtLink>
 </template>
 
 <script>
@@ -98,7 +98,7 @@ export default {
             type: String
         },
         pathParams: {
-            type: Array
+            type: String
         }
     },
     components: {
@@ -119,43 +119,43 @@ export default {
                 data: product
             })
         },
-        goTo() {
-            if (!this.pathName) {
-                return
-            }
-
-
-            if (this.type === 'product') {
-                this.$router.push({
-                    name: `${this.pathName}`,
-                    params: {
-                        category_name: this.pathParams[0].replace(' ', '-').toLowerCase() || '',
-                        subcategory_name: this.pathParams[1].replace(' ', '-').toLowerCase() || '',
-                        subcategory_id: this.pathParams[2] || '',
-                        name: this.pathParams[3].replace(' ', '-').toLowerCase() || '',
-                        id: this.pathParams[4] || ''
-                    }
-                })
-                return
-            }
-
-            if (this.pathName) {
-                this.$router.push({
-                    name: `${this.pathName}`,
-                    ...(this.pathParams && this.pathParams.length
-                        ? {
-                            params: {
-                                name: this.pathParams[0].replace(' ', '-').toLowerCase() || '',
-                                id: this.pathParams[1] || ''
-                            }
-                        }
-                        : {})
-                })
-            } else {
-                console.error('Path name is not defined')
-            }
-
-        }
+        // goTo() {
+        //     if (!this.pathName) {
+        //         return
+        //     }
+        //
+        //
+        //     if (this.type === 'product') {
+        //         this.$router.push({
+        //             name: `${this.pathName}`,
+        //             params: {
+        //                 category_name: this.pathParams[0].replace(' ', '-').toLowerCase() || '',
+        //                 subcategory_name: this.pathParams[1].replace(' ', '-').toLowerCase() || '',
+        //                 subcategory_id: this.pathParams[2] || '',
+        //                 name: this.pathParams[3].replace(' ', '-').toLowerCase() || '',
+        //                 id: this.pathParams[4] || ''
+        //             }
+        //         })
+        //         return
+        //     }
+        //
+        //     if (this.pathName) {
+        //         this.$router.push({
+        //             name: `${this.pathName}`,
+        //             ...(this.pathParams && this.pathParams.length
+        //                 ? {
+        //                     params: {
+        //                         name: this.pathParams[0].replace(' ', '-').toLowerCase() || '',
+        //                         id: this.pathParams[1] || ''
+        //                     }
+        //                 }
+        //                 : {})
+        //         })
+        //     } else {
+        //         console.error('Path name is not defined')
+        //     }
+        //
+        // }
     }
 }
 </script>

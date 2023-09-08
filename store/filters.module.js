@@ -46,16 +46,25 @@ const actions = {
     },
     applyFilter(_, data) {
         const filteredData = {}
-        for (const [key, value] of Object.entries(data)) {
+        for (const [key, value] of Object.entries(data.filter)) {
             if (Array.isArray(value) && value.length) {
-                filteredData[key] = value
+                console.log('val', value)
+                filteredData[key] = value.map(element => element.replace(/\s/g, ''))
             }
         }
 
+        if (!Object.keys(filteredData).length) {
+            return
+        }
+
+        console.log('data', data)
+
         RestService.post('/filters/search/products', filteredData)
             .then(ans => {
+                const filteredProducts = ans.filter(product => product.name.toLowerCase().replace(' ','-') === data.name)
+
                 this.commit('setPageData', {
-                    data: ans,
+                    data: filteredProducts,
                     page: 'products'
                 })
             })

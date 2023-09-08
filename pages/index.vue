@@ -29,7 +29,7 @@
                               :design="['button','white','large']"
                               :button-text="'моделей'"
                               :pathName="'Каталог товаров'"
-                              :pathParams="[`${category.name}`,`${category._id}`]"
+                              :pathParams="`catalog/${category.name.replace(' ', '-').toLowerCase()}/${category._id}`"
                         />
                     </template>
                 </div>

@@ -108,7 +108,7 @@ export default {
             }
 
             const fullDescription = this.currentProduct.description
-            this.shortDescription = fullDescription.slice(0, 100) + '...'
+            this.shortDescription = fullDescription.slice(0, 250) + '...'
         },
         sendMail(social) {
             this.nickname = true

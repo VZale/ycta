@@ -20,12 +20,12 @@
                               :title="product.name"
                               :price="product.price"
                               :description="product.description"
-                              :image="product.images ? product.images[0] : ''"
+                              :image="product.images[0]"
                               :labels="product.labels"
                               :isHidden="product.hidden"
                               :button-text="'моделей'"
                               :pathName="'Товар'"
-                              :pathParams="[`${Object.values(pageData['categories']).find(category => category._id === product.category_id)?.name}`,`${Object.values(pageData['subcategories']).find(subcategory => subcategory._id === product?.sub_category_id)?.name}`,`${Object.values(pageData['categories']).find(category => category._id === product.category_id)?._id}`,`${product.name}`,`${product._id}`]"
+                              :pathParams="`../../../../${Object.values(pageData['categories']).find(category => category._id === product.category_id)?.name.toLowerCase().replace(' ', '-')}/${Object.values(pageData['subcategories']).find(subcategory => subcategory._id === product?.sub_category_id)?.name.toLowerCase().replace(' ', '-')}/${Object.values(pageData['categories']).find(category => category._id === product.category_id)?._id}/${product.name.toLowerCase().replace(' ', '-')}/${product._id}`"
                         />
                     </template>
                 </div>
@@ -90,13 +90,9 @@ export default {
 
 .related-items {
     display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+    grid-template-columns: repeat(4, 25%);
     gap: 12px;
     cursor: grab;
-}
-
-.related-items .item {
-
 }
 
 @media (min-width: 1100px) {
