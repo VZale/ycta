@@ -58,10 +58,10 @@ const actions = {
 
         RestService.post('/filters/search/products', filteredData)
             .then(ans => {
-                const filteredProducts = ans.filter(product => product.name.toLowerCase().replace(' ','-') === data.name)
+                // const filteredProducts = ans.filter(product => product.name.toLowerCase().replace(' ','-') === data.name)
 
                 this.commit('setPageData', {
-                    data: filteredProducts,
+                    data: ans,
                     page: 'products'
                 })
             })
