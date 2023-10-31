@@ -3,13 +3,15 @@
         <img v-if="!images.length" :src="require('@/assets/no-image.png')" alt="">
         <img v-else-if="images.length === 1" :src="'https://api.kirpichkrasnodar.ru/file/download/' + images[0]"
              alt="">
+
         <Galleria
             v-else
+            class="my-galleria"
             :value="images"
             :responsiveOptions="responsiveOptions"
             :numVisible="4"
-            thumbnailsPosition="left"
-            class="my-galleria"
+            :thumbnailsPosition="'left'"
+            containerStyle="max-width: 640px"
         >
             <template #item="slotProps">
                 <img
@@ -18,6 +20,7 @@
                     :alt="slotProps.item.alt"
                     class="galleria-item-image"
                     @click="imageClick(slotProps.item)"
+                    draggable="false"
                 />
             </template>
             <template #thumbnail="slotProps">
@@ -25,6 +28,7 @@
                     <img
                         :src="'https://api.kirpichkrasnodar.ru/file/download/' + slotProps.item"
                         :alt="slotProps.item.alt"
+                        draggable="false"
                         class="galleria-thumbnail-image"
                     />
                 </div>
@@ -103,6 +107,7 @@ export default {
     },
     methods: {
         imageClick(image) {
+            console.log(image)
             this.activeIndex = this.images.indexOf(image)
             this.displayCustom = true;
         }
